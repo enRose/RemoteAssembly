@@ -21,7 +21,7 @@
       "type": "TextBlock",
       "size": "default",
       "isSubtle": true,
-      "text": "What would you like to order?",
+      "text": "Hi, What would you like to order?",
       "wrap": true,
       "maxLines": 0
     }
