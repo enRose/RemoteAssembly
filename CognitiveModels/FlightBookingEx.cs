@@ -1,11 +1,10 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
-
 using System.Linq;
 
-namespace Microsoft.BotBuilderSamples
+namespace Barin.RomoteAssembly
 {
-    // Extends the partial FlightBooking class with methods and properties that simplify accessing entities in the luis results
+    // https://github.com/microsoft/botbuilder-tools/blob/master/packages/LUISGen/src/npm/readme.md
+    // Extends the partial FlightBooking class with methods and properties that
+    // simplify accessing entities in the luis results
     public partial class FlightBooking
     {
         public (string From, string Airport) FromEntities

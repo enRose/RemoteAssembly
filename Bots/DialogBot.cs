@@ -5,7 +5,7 @@ using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Schema;
 using Microsoft.Extensions.Logging;
 
-namespace Microsoft.BotBuilderSamples.Bots
+namespace Barin.RomoteAssembly.Bots
 {
     // This IBot implementation can run any type of Dialog. The use of type
     // parameterization is to allows multiple different bots

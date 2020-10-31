@@ -9,7 +9,7 @@ using Microsoft.Bot.Schema;
 using Microsoft.Extensions.Logging;
 using Microsoft.Recognizers.Text.DataTypes.TimexExpression;
 
-namespace Microsoft.BotBuilderSamples.Dialogs
+namespace Barin.RomoteAssembly.Dialogs
 {
     public class MainDialog : ComponentDialog
     {
@@ -55,8 +55,7 @@ namespace Microsoft.BotBuilderSamples.Dialogs
             // Use the text provided in FinalStepAsync or the default
             // if it is the first time.
             var messageText = stepContext.Options?.ToString() ??
-                "What can I help you with today?\nSay something like \"Book " +
-                "a flight from Paris to Berlin on March 22, 2020\"";
+                "What can I help you with today?";
 
             var promptMessage = MessageFactory.Text(
                 messageText, messageText, InputHints.ExpectingInput);
