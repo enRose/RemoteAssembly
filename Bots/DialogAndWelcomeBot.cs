@@ -1,6 +1,3 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
-
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
@@ -42,18 +39,18 @@ namespace Microsoft.BotBuilderSamples.Bots
         {
             var cardResourcePath = "CoreBot.Cards.welcomeCard.json";
 
-            using (var stream = GetType().Assembly.GetManifestResourceStream(cardResourcePath))
+            using var stream = GetType().Assembly
+                .GetManifestResourceStream(cardResourcePath);
+
+            using var reader = new StreamReader(stream);
+
+            var adaptiveCard = reader.ReadToEnd();
+
+            return new Attachment()
             {
-                using (var reader = new StreamReader(stream))
-                {
-                    var adaptiveCard = reader.ReadToEnd();
-                    return new Attachment()
-                    {
-                        ContentType = "application/vnd.microsoft.card.adaptive",
-                        Content = JsonConvert.DeserializeObject(adaptiveCard),
-                    };
-                }
-            }
+                ContentType = "application/vnd.microsoft.card.adaptive",
+                Content = JsonConvert.DeserializeObject(adaptiveCard),
+            };
         }
     }
 }
