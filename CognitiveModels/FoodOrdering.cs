@@ -11,11 +11,12 @@ using Microsoft.Bot.Builder.AI.Luis;
 
 namespace Barin.RomoteAssembly
 {
-    public partial class FlightBooking: IRecognizerConvert
+    public partial class FoodOrdering: IRecognizerConvert
     {
         public string Text;
         public string AlteredText;
         public enum Intent {
+            RestaurantOrder,
             BookFlight,
             Cancel,
             GetWeather,
@@ -75,7 +76,7 @@ namespace Barin.RomoteAssembly
 
         public void Convert(dynamic result)
         {
-            var app = JsonConvert.DeserializeObject<FlightBooking>(JsonConvert.SerializeObject(result, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
+            var app = JsonConvert.DeserializeObject<FoodOrdering>(JsonConvert.SerializeObject(result, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
             Text = app.Text;
             AlteredText = app.AlteredText;
             Intents = app.Intents;

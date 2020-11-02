@@ -5,7 +5,7 @@ namespace Barin.RomoteAssembly
     // https://github.com/microsoft/botbuilder-tools/blob/master/packages/LUISGen/src/npm/readme.md
     // Extends the partial FlightBooking class with methods and properties that
     // simplify accessing entities in the luis results
-    public partial class FlightBooking
+    public partial class FoodOrdering
     {
         public (string From, string Airport) FromEntities
         {
