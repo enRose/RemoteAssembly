@@ -3,12 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29319.158
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreBot", "CoreBot.csproj", "{0793F52D-82C5-4C6E-967B-606676CF8B17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RemoteAssembly", "RemoteAssembly.csproj", "{0793F52D-82C5-4C6E-967B-606676CF8B17}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F0CB410C-1F93-4753-BEA0-015D22B5152E}"
-	ProjectSection(SolutionItems) = preProject
-		CoreBot.sln = CoreBot.sln
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

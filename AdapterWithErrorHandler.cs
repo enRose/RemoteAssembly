@@ -19,15 +19,27 @@ namespace Barin.RomoteAssembly
             OnTurnError = async (turnContext, exception) =>
             {
                 // Log any leaked exception from the application.
-                logger.LogError(exception, $"[OnTurnError] unhandled error : {exception.Message}");
+                logger.LogError(exception, $"[OnTurnError] unhandled error : " +
+                    $"{exception.Message}");
 
                 // Send a message to the user
                 var errorMessageText = "The bot encountered an error or bug.";
-                var errorMessage = MessageFactory.Text(errorMessageText, errorMessageText, InputHints.IgnoringInput);
+
+                var errorMessage = MessageFactory.Text(
+                    errorMessageText,
+                    errorMessageText,
+                    InputHints.IgnoringInput);
+
                 await turnContext.SendActivityAsync(errorMessage);
 
-                errorMessageText = "To continue to run this bot, please fix the bot source code.";
-                errorMessage = MessageFactory.Text(errorMessageText, errorMessageText, InputHints.ExpectingInput);
+                errorMessageText = "To continue to run this bot, please " +
+                    "fix the bot source code.";
+
+                errorMessage = MessageFactory.Text(
+                    errorMessageText,
+                    errorMessageText,
+                    InputHints.ExpectingInput);
+
                 await turnContext.SendActivityAsync(errorMessage);
 
                 if (conversationState != null)
@@ -41,12 +53,17 @@ namespace Barin.RomoteAssembly
                     }
                     catch (Exception e)
                     {
-                        logger.LogError(e, $"Exception caught on attempting to Delete ConversationState : {e.Message}");
+                        logger.LogError(e, $"Exception caught on attempting to " +
+                            $"Delete ConversationState : {e.Message}");
                     }
                 }
 
                 // Send a trace activity, which will be displayed in the Bot Framework Emulator
-                await turnContext.TraceActivityAsync("OnTurnError Trace", exception.Message, "https://www.botframework.com/schemas/error", "TurnError");
+                await turnContext.TraceActivityAsync(
+                    "OnTurnError Trace",
+                    exception.Message,
+                    "https://www.botframework.com/schemas/error",
+                    "TurnError");
             };
         }
     }

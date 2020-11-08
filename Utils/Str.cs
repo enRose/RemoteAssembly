@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace CoreBot.Utils
+namespace Barin.RomoteAssembly.Utils
 {
     public class StrUtil
     {

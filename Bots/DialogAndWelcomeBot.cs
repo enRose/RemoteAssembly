@@ -10,10 +10,13 @@ using Newtonsoft.Json;
 
 namespace Barin.RomoteAssembly.Bots
 {
-    public class DialogAndWelcomeBot<T> : DialogBot<T>
-        where T : Dialog
+    public class DialogAndWelcomeBot<DialogT> : DialogBot<DialogT>
+        where DialogT : Dialog
     {
-        public DialogAndWelcomeBot(ConversationState conversationState, UserState userState, T dialog, ILogger<DialogBot<T>> logger)
+        public DialogAndWelcomeBot(
+            ConversationState conversationState,
+            UserState userState, DialogT dialog,
+            ILogger<DialogBot<DialogT>> logger)
             : base(conversationState, userState, dialog, logger)
         {
         }
@@ -40,7 +43,7 @@ namespace Barin.RomoteAssembly.Bots
         // Load attachment from embedded resource.
         private Attachment CreateAdaptiveCardAttachment()
         {
-            var cardResourcePath = "CoreBot.Cards.welcomeCard.json";
+            var cardResourcePath = "RemoteAssembly.Cards.welcomeCard.json";
 
             using var stream = GetType().Assembly
                 .GetManifestResourceStream(cardResourcePath);

@@ -7,24 +7,18 @@ using Microsoft.Extensions.Logging;
 
 namespace Barin.RomoteAssembly.Bots
 {
-    // This IBot implementation can run any type of Dialog. The use of type
-    // parameterization is to allows multiple different bots
-    // to be run at different endpoints within the same project.
-    // This can be achieved by defining distinct Controller types
-    // each with dependency on distinct IBot types, this way ASP Dependency
-    // Injection can glue everything together without ambiguity.
-    // The ConversationState is used by the Dialog system. The UserState isn't,
-    // however, it might have been used in a Dialog implementation,
-    // and the requirement is that all BotState objects are saved at the end of a turn.
-    public class DialogBot<T> : ActivityHandler
-        where T : Dialog
+    public class DialogBot<DialogT> : ActivityHandler
+        where DialogT : Dialog
     {
         protected readonly Dialog Dialog;
         protected readonly BotState ConversationState;
         protected readonly BotState UserState;
         protected readonly ILogger Logger;
 
-        public DialogBot(ConversationState conversationState, UserState userState, T dialog, ILogger<DialogBot<T>> logger)
+        public DialogBot(
+            ConversationState conversationState,
+            UserState userState, DialogT dialog,
+            ILogger<DialogBot<DialogT>> logger)
         {
             ConversationState = conversationState;
             UserState = userState;
@@ -32,7 +26,9 @@ namespace Barin.RomoteAssembly.Bots
             Logger = logger;
         }
 
-        public override async Task OnTurnAsync(ITurnContext turnContext, CancellationToken cancellationToken = default(CancellationToken))
+        public override async Task OnTurnAsync(
+            ITurnContext turnContext,
+            CancellationToken cancellationToken = default)
         {
             await base.OnTurnAsync(turnContext, cancellationToken);
 
@@ -41,12 +37,18 @@ namespace Barin.RomoteAssembly.Bots
             await UserState.SaveChangesAsync(turnContext, false, cancellationToken);
         }
 
-        protected override async Task OnMessageActivityAsync(ITurnContext<IMessageActivity> turnContext, CancellationToken cancellationToken)
+        protected override async Task OnMessageActivityAsync(
+            ITurnContext<IMessageActivity> turnContext,
+            CancellationToken cancellationToken)
         {
             Logger.LogInformation("Running dialog with Message Activity.");
 
             // Run the Dialog with the new message Activity.
-            await Dialog.RunAsync(turnContext, ConversationState.CreateProperty<DialogState>("DialogState"), cancellationToken);
+            await Dialog.RunAsync(
+                turnContext,
+                ConversationState
+                .CreateProperty<DialogState>("DialogState"),
+                cancellationToken);
         }
     }
 }
