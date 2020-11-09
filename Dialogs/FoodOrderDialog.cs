@@ -10,7 +10,7 @@ using Microsoft.Bot.Schema;
 
 namespace Barin.RomoteAssembly.Dialogs
 {
-    public class FoodOrderDialog : ComponentDialog
+    public class FoodOrderDialog : InterruptionHandlerDialog
     {
         public FoodOrderDialog() : base(nameof(FoodOrderDialog))
         {
@@ -55,10 +55,10 @@ namespace Barin.RomoteAssembly.Dialogs
 
             var dish = OrderValidator.Find(nameOfDish);
 
+            var orderDetails = (OrderDetails)stepContext.Options;
+
             if (dish != null)
             {
-                var orderDetails = (OrderDetails)stepContext.Options;
-
                 orderDetails.Orders ??= new List<Order>();
 
                 orderDetails.Orders.Add(new Order {
@@ -71,91 +71,13 @@ namespace Barin.RomoteAssembly.Dialogs
                     orderDetails,
                     cancellationToken);
             }
-            
-            var promptOptions = new PromptOptions
-            {
-                Prompt = MessageFactory.Text("Sorry, I don't understand you order. " +
-                        "Would you like to see the menu?"),
 
-                RetryPrompt = MessageFactory.Text("Please choose an option."),
-
-                Choices = ChoiceFactory.ToChoices(new List<string>
-                {
-                    "Yes, see the menu please",
-                    "Continue with ordering please",
-                    "No, I would like to cancel this order"
-                }),
-            };
-
-            return await stepContext.PromptAsync(
-                nameof(ChoicePrompt), promptOptions, cancellationToken);
-        }
-
-        private async Task<DialogTurnResult> SeeMenuOrContinueOrdering(
-            WaterfallStepContext stepContext,
-            CancellationToken cancellationToken)
-        {
-            var orderDetails = (OrderDetails)stepContext.Options;
-            var choice = (FoundChoice)stepContext.Result;
-            var done = choice.Value == "No, I would like to cancel this order";
-
-            if (done)
-            {
-                return await stepContext.EndDialogAsync(
-                    orderDetails, cancellationToken);
-            }
-
-            if (choice.Value == "Yes, see the menu please")
-            {
-                
-            }
+            await stepContext.Context.SendActivityAsync(
+                MessageFactory.Text("Sorry, I didn't understand your order. "),
+                cancellationToken);
 
             return await stepContext.ReplaceDialogAsync(
                 nameof(FoodOrderDialog), orderDetails, cancellationToken);
-        }
-
-        protected override async Task<DialogTurnResult> OnContinueDialogAsync(
-            DialogContext innerDc,
-            CancellationToken cancellationToken = default)
-        {
-            var result = await InterruptAsync(innerDc, cancellationToken);
-            if (result != null)
-            {
-                return result;
-            }
-
-            return await base.OnContinueDialogAsync(innerDc, cancellationToken);
-        }
-
-        private async Task<DialogTurnResult> InterruptAsync(
-            DialogContext innerDc,
-            CancellationToken cancellationToken)
-        {
-            if (innerDc.Context.Activity.Type == ActivityTypes.Message)
-            {
-                var text = innerDc.Context.Activity.Text.ToLowerInvariant();
-
-                switch (text)
-                {
-                    case "help":
-                    case "?":
-                        var helpMessage = MessageFactory.Text(
-                            HelpMsgText, HelpMsgText, InputHints.ExpectingInput);
-                        await innerDc.Context.SendActivityAsync(
-                            helpMessage, cancellationToken);
-                        return new DialogTurnResult(DialogTurnStatus.Waiting);
-
-                    case "cancel":
-                    case "quit":
-                        var cancelMessage = MessageFactory.Text(
-                            CancelMsgText, CancelMsgText, InputHints.IgnoringInput);
-                        await innerDc.Context.SendActivityAsync(
-                            cancelMessage, cancellationToken);
-                        return await innerDc.CancelAllDialogsAsync(cancellationToken);
-                }
-            }
-
-            return null;
         }
     }
 }

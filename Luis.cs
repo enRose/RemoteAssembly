@@ -1,6 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
-using CoreBot.Utils;
+using Barin.RomoteAssembly.Utils;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.AI.Luis;
 using Microsoft.Extensions.Configuration;
