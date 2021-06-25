@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { ListGroup, Card, Button, Container, Row, Col } from 'react-bootstrap'
-import spr from '../res/sun-pour-room.jpg'
+import { ListGroup, Card, Button, Container, Row } from 'react-bootstrap'
 import { all } from './listing-service'
+import './style.css'
 
 export const Listings = () => {
   const [listings, setListings] = useState()
-  const [id, setId] = useState(undefined)
+  const [selectedId, setSelectedId] = useState(undefined)
 
   useEffect(async () => {
     const response = await all()
@@ -15,27 +15,37 @@ export const Listings = () => {
   // when a list id is selected
   useEffect(() => {
     //this.fetchData()
-  }, [id])
+    console.log(selectedId)
+  }, [selectedId])
+
+  const CardView = ({
+    id = '',
+    title = "Default Title",
+    description = "Default Text",
+    img = "default_holder.js/100px180",
+    buttonText = '',
+    link = ''
+  }) => (
+    <Card
+      id={id}
+      onClick={e => setSelectedId(id)} 
+      className='marginMedium' 
+      style={{ width: '18rem', cursor: 'pointer' }}>
+      <Card.Img variant="top" src={img} />
+      <Card.Body>
+        <Card.Title>{title}</Card.Title>
+        <Card.Text>{description}</Card.Text>
+        {buttonText && <Button variant="primary">{buttonText}</Button>}
+      </Card.Body>
+    </Card>
+  )
 
   return (
     <Container fluid>
       <Row>
-        <Col>
-          <ListGroup>
-            <ListGroup.Item><Card style={{ width: '18rem' }}>
-              <Card.Img variant="top" src={spr} />
-              <Card.Body>
-                <Card.Title>Card Title</Card.Title>
-                <Card.Text>
-                  Some quick example text to build on the card title and make up the bulk of
-                  the card's content.
-                </Card.Text>
-                <Button variant="primary">Go somewhere</Button>
-              </Card.Body>
-            </Card>
-            </ListGroup.Item>
-          </ListGroup>
-        </Col>
+        {
+          listings?.map((i, index) => <CardView key={index} {...i} />)
+        }
       </Row>
     </Container>
   )
