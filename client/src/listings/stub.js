@@ -6,7 +6,13 @@ import br from '../res/book-reading.jpg'
 import ic from '../res/ice-cream.jpg'
 import ib from '../res/idea-badges.jpg'
 
-export const fetchAllListings = () =>
+export const getBy = (id) =>
+  Promise.resolve({
+    json: () => stubList.find(x => x.id === id),
+    ok: true
+  })
+
+export const getAll = () =>
   Promise.resolve({
     json: () => stubList 
   })
