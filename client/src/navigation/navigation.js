@@ -30,7 +30,7 @@ function Navigation() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
-          <NavItem eventkey={1} href="/listings">
+            <NavItem eventkey={1} href="/listings">
               <Nav.Link as={NavLink} to="/Listings" >listings</Nav.Link>
             </NavItem>
             <NavItem eventkey={2} href="/signup">

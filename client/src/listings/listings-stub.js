@@ -17,7 +17,7 @@ export const getAll = () =>
     json: () => stubList 
   })
 
-export const stubList = [
+const stubList = [
   {
     id: '1',
     img: spr,

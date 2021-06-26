@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Card, Button, Container, Row } from 'react-bootstrap'
-import { all, get } from './listing-service'
+import { all } from './listings-service'
 import { useHistory } from 'react-router-dom'
 import './style.css'
 
@@ -14,11 +14,8 @@ export const Listings = () => {
     setListings(response.json())
   }, [])
 
-  // when a list id is selected
   useEffect(async () => {
-    console.log(selectedId)
-    const response = await get()
-    response.ok && selectedId && history.push(`/listings/${selectedId}`)
+    selectedId && history.push(`/listings/${selectedId}`)
   }, [selectedId])
 
   const CardView = ({
@@ -45,7 +42,7 @@ export const Listings = () => {
 
   return (
     <Container fluid>
-      <Row>
+      <Row className="justify-content-center">
         {
           listings?.map((i, index) => <CardView key={index} {...i} />)
         }
