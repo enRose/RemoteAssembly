@@ -1,9 +1,11 @@
 import spr from '../res/sun-pour-room.jpg'
-
 import had from '../res/happy-au-day.jpg'
 import br from '../res/book-reading.jpg'
 import ic from '../res/ice-cream.jpg'
 import ib from '../res/idea-badges.jpg'
+import choreographer from '../res/choreographer.jpg'
+import meditating from '../res/meditating.jpg'
+import science from '../res/science.jpg'
 import { fakePromise } from '../stub-util'
 
 export const getBy = id => 
@@ -16,7 +18,7 @@ export const getBy = id =>
       title: 'Sed ut perspiciatis',
       location: '32 Allison Drive, Hawke\'s Bays, New Zealand',
       featureImage: spr,
-      images: [spr, had, br, ic, ib],
+      images: [spr, had, br, ic, ib, choreographer, meditating, science],
       host: {
         id: 'JennieA',
         firstName: 'Jennie',
@@ -117,7 +119,7 @@ export const getBy = id =>
       title: 'Sed ut perspiciatis',
       location: '32 Allison Drive, Hawke\'s Bays, New Zealand',
       featureImage: spr,
-      images: [spr, had, br, ic, ib],
+      images: [spr, had, br, ic, ib, choreographer, meditating, science],
       host: {
         id: 'JennieA',
         firstName: 'Jennie',
@@ -218,7 +220,7 @@ export const getBy = id =>
       title: 'Sed ut perspiciatis',
       location: '32 Allison Drive, Hawke\'s Bays, New Zealand',
       featureImage: spr,
-      images: [spr, had, br, ic, ib],
+      images: [spr, had, br, ic, ib, choreographer, meditating, science],
       host: {
         id: 'JennieA',
         firstName: 'Jennie',
@@ -319,7 +321,7 @@ export const getBy = id =>
       title: 'Sed ut perspiciatis',
       location: '32 Allison Drive, Hawke\'s Bays, New Zealand',
       featureImage: spr,
-      images: [spr, had, br, ic, ib],
+      images: [spr, had, br, ic, ib, choreographer, meditating, science],
       host: {
         id: 'JennieA',
         firstName: 'Jennie',
@@ -420,7 +422,7 @@ export const getBy = id =>
       title: 'Sed ut perspiciatis',
       location: '32 Allison Drive, Hawke\'s Bays, New Zealand',
       featureImage: spr,
-      images: [spr, had, br, ic, ib],
+      images: [spr, had, br, ic, ib, choreographer, meditating, science],
       host: {
         id: 'JennieA',
         firstName: 'Jennie',
@@ -521,7 +523,7 @@ export const getBy = id =>
       title: 'Sed ut perspiciatis',
       location: '32 Allison Drive, Hawke\'s Bays, New Zealand',
       featureImage: spr,
-      images: [spr, had, br, ic, ib],
+      images: [spr, had, br, ic, ib, choreographer, meditating, science],
       host: {
         id: 'JennieA',
         firstName: 'Jennie',
@@ -622,7 +624,7 @@ export const getBy = id =>
       title: 'Sed ut perspiciatis',
       location: '32 Allison Drive, Hawke\'s Bays, New Zealand',
       featureImage: spr,
-      images: [spr, had, br, ic, ib],
+      images: [spr, had, br, ic, ib, choreographer, meditating, science],
       host: {
         id: 'JennieA',
         firstName: 'Jennie',
@@ -723,7 +725,7 @@ export const getBy = id =>
       title: 'Sed ut perspiciatis',
       location: '32 Allison Drive, Hawke\'s Bays, New Zealand',
       featureImage: spr,
-      images: [spr, had, br, ic, ib],
+      images: [spr, had, br, ic, ib, choreographer, meditating, science],
       host: {
         id: 'JennieA',
         firstName: 'Jennie',
