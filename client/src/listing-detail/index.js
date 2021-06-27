@@ -9,6 +9,7 @@ export const ListingDetail = () => {
   useEffect(async () => {
     console.log(id)
     const response = await get(id)
+    console.log(response.json())
   }, [])
 
   return (

@@ -14,7 +14,7 @@ export const Listings = () => {
     setListings(response.json())
   }, [])
 
-  useEffect(async () => {
+  useEffect(() => {
     selectedId && history.push(`/listings/${selectedId}`)
   }, [selectedId])
 
