@@ -4,3 +4,10 @@
   border: aqua;
   border-style: groove;
 }
+
+.bounding-box {
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+}
