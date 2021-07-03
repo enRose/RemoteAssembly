@@ -11,3 +11,12 @@
   height: 100%;
   width: 100%;
 }
+
+.container-font {
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+}
+
+.container-small-vertical-margin .row {
+  margin-left: .1rem;
+  margin-right: .1rem;
+}

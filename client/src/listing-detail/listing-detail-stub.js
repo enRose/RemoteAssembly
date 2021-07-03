@@ -15,7 +15,7 @@ export const getBy = id =>
     {
       id: '1',
       isOnlineCourse: false,
-      title: 'Sed ut perspiciatis',
+      title: 'Craft a Pair of Felted Wool Slippers',
       location: '32 Allison Drive, Hawke\'s Bays, New Zealand',
       featureImage: spr,
       images: [spr, had, br, ic, ib, choreographer, meditating, science],

@@ -5,10 +5,11 @@ import Button from 'react-bootstrap/Button'
 import Nav from 'react-bootstrap/Nav'
 import brain from './brain.svg'
 import { Switch, Route, NavLink } from 'react-router-dom'
-import { InputGroup, NavItem } from 'react-bootstrap'
+import { InputGroup, NavItem, Container } from 'react-bootstrap'
 import Signup from '../signup'
 import { Listings } from '../listings'
 import { ListingDetail } from '../listing-detail'
+import './style.css'
 
 //Attribution icon
 //<div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
@@ -16,7 +17,7 @@ import { ListingDetail } from '../listing-detail'
 function Navigation() {
   return (
     <>
-      <Navbar expand="md" bg="light" variant="light" sticky="top">
+      <Navbar expand="lg" bg="light" variant="light" sticky="top">
         <Navbar.Brand as={NavLink} to='/'>
           <img
             alt=""
@@ -37,17 +38,20 @@ function Navigation() {
               <Nav.Link as={NavLink} to="/signup" >Sign up</Nav.Link>
             </NavItem>
           </Nav>
-          <Form inline>
-            <InputGroup className="mb-3">
-              <FormControl
-                placeholder="Search"
-                aria-label="search"
-                aria-describedby="search"
-              />
-              <Button variant="outline-primary" id="search-button">
-                Button
-              </Button>
-            </InputGroup>
+          <Navbar.Text className='navbar-text-margin-right'>
+            Signed in as: <a href="#login">Mark Otto</a>
+          </Navbar.Text>
+          <Form inline className="d-flex">
+            <FormControl
+              type="search"
+              placeholder="Search"
+              aria-label="search"
+              aria-describedby="search"
+              className="mr-2"
+            />
+            <Button variant="outline-primary" id="search-button">
+              Button
+            </Button>
           </Form>
         </Navbar.Collapse>
       </Navbar>
