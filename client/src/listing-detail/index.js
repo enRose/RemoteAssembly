@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Col, Image, Container, Row, Button } from 'react-bootstrap'
 import { useHistory, useParams } from 'react-router-dom'
 import { get } from './listing-detail-service'
-import './style.css'
+import css from './listing-detail-style.module.css'
 import { ImageCarouselModal } from './image-carousel'
-import star from './star.svg'
 import { ReactComponent as Heart } from './heart.svg'
 
 
@@ -31,41 +30,46 @@ export const ListingDetail = () => {
         show={modalShow}
         onHide={() => setModalShow(false)}
       />
-      <Container fluid className='container-small-vertical-margin container-font'>
-        <Row>
-          <h3 className='title'>{experience.title}</h3>
+      <Container fluid='lg' className={css.container} >
+        <Row className={css.row}>
+          <h3 className={css.title}>{experience.title}</h3>
         </Row>
-        <Row className='review-summary'>
-
-          <Button variant="light" className='like-icon-button'>
-            <span className='like-icon'>
+        <Row className={`${css['review-highlight']} ${css.row}`}>
+          <Button variant="light" className={css['like-icon-button']}>
+            <span className={css['like-icon']}>
               <Heart />
             </span>
-            <span>
-              {experience.review.stars}
+            <span className={css['review-score-wrapper']}>
+              <span className={css['review-stars']}>{experience.review.stars}</span>
+              ({experience.review.numOfReviews})
             </span>
           </Button>
-
+          <Button variant="light" className={css['location-button']}>
+            <span style={{ marginRight: '.2rem' }} aria-hidden="true">·</span>
+            <span className={css['location-city']}>
+              {experience.location.city}
+            </span>
+          </Button>
         </Row>
-        <Row className="justify-content-center"
+        <Row className={`justify-content-center ${css['image-group']}`}
           onClick={() => setModalShow(true)}>
-          <Col className='col-small-padding' sm={4}>
+          <Col className={css['first-image-col']} sm={4}>
             <Image
-              className='bounding-box'
+              className={css['image-bounding-box']}
               style={{
                 backgroundImage: `url(${experience.featureImage})`
               }}
               fluid />
           </Col>
-          <Col className='col-small-padding' sm={4}>
+          <Col className={css['second-image-col']} sm={4}>
             <Image
-              className='bounding-box'
+              className={css['image-bounding-box']}
               style={{
                 backgroundImage: `url(${experience.images[1]})`
               }}
               fluid />
           </Col>
-          <Col className='col-small-padding' sm={2}>
+          <Col sm={2}>
             <Container fluid>
               <Row>
                 <Image src={experience.images[2]}
@@ -76,12 +80,16 @@ export const ListingDetail = () => {
               </Row>
             </Container >
           </Col>
-          <Col className='col-small-padding'>
-            <Image className='bounding-box'
+          <Col className={css['last-image-col']}>
+            <Image className={css['image-bounding-box']}
               style={{
                 backgroundImage: `url(${experience.images[4]})`
               }} fluid />
           </Col>
+        </Row>
+
+        <Row className={css.row}>
+          <h4 className={css['host-overview']}>Class hosted by {experience.host.firstName}</h4>
         </Row>
 
       </Container >
