@@ -4,8 +4,6 @@ import { useHistory, useParams } from 'react-router-dom'
 import { get } from './listing-detail-service'
 import css from './listing-detail-style.module.css'
 import { ImageCarouselModal } from './image-carousel'
-import { ReactComponent as Heart } from './heart.svg'
-
 
 export const ListingDetail = () => {
   let { id } = useParams()
@@ -35,9 +33,9 @@ export const ListingDetail = () => {
           <h3 className={css.title}>{experience.title}</h3>
         </Row>
         <Row className={`${css['review-highlight']} ${css.row}`}>
-          <Button variant="light" className={css['like-icon-button']}>
-            <span className={css['like-icon']}>
-              <Heart />
+          <Button variant="light" className={css['star-icon-button']}>
+            <span className={css['star-icon']}>
+              <i className={`bi bi-star-fill ${css['star-icon-colour']}`}></i>
             </span>
             <span className={css['review-score-wrapper']}>
               <span className={css['review-stars']}>{experience.review.stars}</span>
@@ -88,8 +86,18 @@ export const ListingDetail = () => {
           </Col>
         </Row>
 
-        <Row className={css.row}>
+        <Row>
           <h4 className={css['host-overview']}>Class hosted by {experience.host.firstName}</h4>
+        </Row>
+        <Row>
+          <span>{experience.course.durationPerClass}</span>
+          <span style={{ marginRight: '.2rem', marginLeft: '.2rem' }} aria-hidden="true">·</span>
+          <span>Hosted in {experience.course.hostedIn}</span>
+        </Row>
+
+        <Row>
+          <i className={`bi bi-people ${css['class-highlight-icon']}`}></i>
+          <span>Up to {experience.course.studentCapacity} people</span>
         </Row>
 
       </Container >

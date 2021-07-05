@@ -34,10 +34,8 @@ export const getBy = id =>
       course: {
         hostedIn: 'English',
         durationPerClass: '2.5 hours',
-        highlights: {
-          studentCapacity: 6,
-          includesEquipment: true
-        },
+        studentCapacity: 6,
+        includesEquipment: true,
         whatsIncluded: [
           {
             title: 'helmet',
@@ -135,10 +133,8 @@ export const getBy = id =>
       course: {
         hostedIn: 'English',
         durationPerClass: '2.5 hours',
-        highlights: {
-          studentCapacity: 6,
-          includesEquipment: true
-        },
+        studentCapacity: 6,
+        includesEquipment: true,
         whatsIncluded: [
           {
             title: 'helmet',
@@ -236,10 +232,8 @@ export const getBy = id =>
       course: {
         hostedIn: 'English',
         durationPerClass: '2.5 hours',
-        highlights: {
-          studentCapacity: 6,
-          includesEquipment: true
-        },
+        studentCapacity: 6,
+        includesEquipment: true,
         whatsIncluded: [
           {
             title: 'helmet',
@@ -337,10 +331,8 @@ export const getBy = id =>
       course: {
         hostedIn: 'English',
         durationPerClass: '2.5 hours',
-        highlights: {
-          studentCapacity: 6,
-          includesEquipment: true
-        },
+        studentCapacity: 6,
+        includesEquipment: true,
         whatsIncluded: [
           {
             title: 'helmet',
@@ -438,10 +430,8 @@ export const getBy = id =>
       course: {
         hostedIn: 'English',
         durationPerClass: '2.5 hours',
-        highlights: {
-          studentCapacity: 6,
-          includesEquipment: true
-        },
+        studentCapacity: 6,
+        includesEquipment: true,
         whatsIncluded: [
           {
             title: 'helmet',
@@ -539,10 +529,8 @@ export const getBy = id =>
       course: {
         hostedIn: 'English',
         durationPerClass: '2.5 hours',
-        highlights: {
-          studentCapacity: 6,
-          includesEquipment: true
-        },
+        studentCapacity: 6,
+        includesEquipment: true,
         whatsIncluded: [
           {
             title: 'helmet',
@@ -640,10 +628,8 @@ export const getBy = id =>
       course: {
         hostedIn: 'English',
         durationPerClass: '2.5 hours',
-        highlights: {
-          studentCapacity: 6,
-          includesEquipment: true
-        },
+        studentCapacity: 6,
+        includesEquipment: true,
         whatsIncluded: [
           {
             title: 'helmet',
@@ -741,10 +727,8 @@ export const getBy = id =>
       course: {
         hostedIn: 'English',
         durationPerClass: '2.5 hours',
-        highlights: {
-          studentCapacity: 6,
-          includesEquipment: true
-        },
+        studentCapacity: 6,
+        includesEquipment: true,
         whatsIncluded: [
           {
             title: 'helmet',

@@ -1,0 +1,74 @@
+.title {
+  margin-top: 1.6rem;
+  font-size: 1.5em;
+}
+
+.review-highlight {
+  margin-bottom: 1.5rem;
+}
+
+.star-icon-button {
+  background: transparent !important;
+  border: none;
+  padding-left: 0;
+}
+
+.star-icon {
+  font-size: 1rem !important;
+  margin-right: .2rem !important;
+  display: inline-flex !important;
+}
+
+.star-icon-colour {
+  color:rgb(255, 56, 92);
+}
+
+.review-score-wrapper {
+  font-size: .9em;
+}
+
+.review-stars {
+  color: var(--parsed-html-color, #222222) !important;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
+  font-weight: 600 !important;
+  margin-bottom: 1em !important;
+}
+
+.location-button {
+  padding-left: 0;
+  background: transparent !important;
+  border: none;
+}
+
+.location-city {
+  text-decoration: underline;
+}
+
+.first-image-col {
+  padding-left: 0;
+}
+
+.second-image-col {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.last-image-col {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.image-bounding-box {
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.host-overview {
+  margin-top: 2em;
+}
+
+.class-highlight-icon {
+  margin-right: 1rem;
+}
