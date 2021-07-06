@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Col, Image, Container, Row, Button } from 'react-bootstrap'
+import { Card, Navbar, Col, Image, Container, Row, Button } from 'react-bootstrap'
 import { useHistory, useParams } from 'react-router-dom'
 import { get } from './listing-detail-service'
 import css from './listing-detail-style.module.css'
@@ -97,13 +97,28 @@ export const ListingDetail = () => {
 
         <Row className={css['class-highlights-wrapper']}>
           <Col className={css['class-highlights']}>
-            <div >
-              <i className={`bi bi-people ${css['class-highlight-icon']}`}></i>
-              <span>Up to {experience.course.studentCapacity} people</span>
-            </div></Col>
-          <Col>2 of 2</Col>
-
+            <Row className={css['class-highlight-item']}>
+              <Col>
+                <i className={`bi bi-people ${css['class-highlight-icon']}`}></i>
+                <span>Up to {experience.course.studentCapacity} people</span>
+              </Col>
+            </Row>
+            {
+              experience.course.includesEquipment &&
+              <Row>
+                <Col>
+                  <i className={`bi bi-brush ${css['class-highlight-icon']}`}></i>
+                  <span>Includes equipment</span>
+                </Col>
+              </Row>
+            }
+          </Col>
+          <Col>
+           
+          </Col>
         </Row>
+
+
 
       </Container >
     </>

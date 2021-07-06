@@ -80,9 +80,20 @@
   border-top-color: rgb(221, 221, 221);
   border-top-width: 1px !important;
   border-top-style: solid !important;
+  border-bottom-color: rgb(221, 221, 221);
+  border-bottom-width: 1px !important;
+  border-bottom-style: solid !important;
   padding-left: 0;
 }
 
 .class-highlight-icon {
   margin-right: 1rem;
+}
+
+.class-highlight-item {
+  margin-bottom: 2rem;
+}
+
+.class-highlight-item:last-child {
+  margin-bottom: 0px;
 }
