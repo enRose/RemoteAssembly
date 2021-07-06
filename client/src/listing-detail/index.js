@@ -95,9 +95,14 @@ export const ListingDetail = () => {
           <span>Hosted in {experience.course.hostedIn}</span>
         </Row>
 
-        <Row>
-          <i className={`bi bi-people ${css['class-highlight-icon']}`}></i>
-          <span>Up to {experience.course.studentCapacity} people</span>
+        <Row className={css['class-highlights-wrapper']}>
+          <Col className={css['class-highlights']}>
+            <div >
+              <i className={`bi bi-people ${css['class-highlight-icon']}`}></i>
+              <span>Up to {experience.course.studentCapacity} people</span>
+            </div></Col>
+          <Col>2 of 2</Col>
+
         </Row>
 
       </Container >
