@@ -86,37 +86,46 @@ export const ListingDetail = () => {
           </Col>
         </Row>
 
-        <Row>
-          <h4 className={css['host-overview']}>Class hosted by {experience.host.firstName}</h4>
-        </Row>
-        <Row>
-          <span>{experience.course.durationPerClass}</span>
-          <span style={{ marginRight: '.2rem', marginLeft: '.2rem' }} aria-hidden="true">·</span>
-          <span>Hosted in {experience.course.hostedIn}</span>
-        </Row>
-
-        <Row className={css['class-highlights-wrapper']}>
-          <Col className={css['class-highlights']}>
-            <Row className={css['class-highlight-item']}>
+        <Row className={css['class-overview']}>
+          <Col className={css['col-no-left-padding']}>
+            <h4 >Class hosted by {experience.host.firstName}</h4>
+            <Row>
               <Col>
-                <i className={`bi bi-people ${css['class-highlight-icon']}`}></i>
-                <span>Up to {experience.course.studentCapacity} people</span>
+                <span>{experience.course.durationPerClass}</span>
+                <span style={{ marginRight: '.2rem', marginLeft: '.2rem' }} aria-hidden="true">·</span>
+                <span>Hosted in {experience.course.hostedIn}</span>
               </Col>
             </Row>
-            {
-              experience.course.includesEquipment &&
-              <Row>
-                <Col>
-                  <i className={`bi bi-brush ${css['class-highlight-icon']}`}></i>
-                  <span>Includes equipment</span>
-                </Col>
-              </Row>
-            }
+            <Row className={css['class-highlights-wrapper']}>
+              <Col className={css['class-highlights']}>
+                <Row className={css['class-highlight-item']}>
+                  <Col>
+                    <i className={`bi bi-people ${css['class-highlight-icon']}`}></i>
+                    <span>Up to {experience.course.studentCapacity} people</span>
+                  </Col>
+                </Row>
+                {
+                  experience.course.includesEquipment &&
+                  <Row>
+                    <Col>
+                      <i className={`bi bi-brush ${css['class-highlight-icon']}`}></i>
+                      <span>Includes equipment</span>
+                    </Col>
+                  </Row>
+                }
+              </Col>
+              <Col>
+
+              </Col>
+            </Row>
           </Col>
           <Col>
-           
+            <h4>What you'll do</h4>
+            <p style={{ whiteSpace: 'pre-line' }}>{experience.course.description}</p>
           </Col>
         </Row>
+
+
 
 
 

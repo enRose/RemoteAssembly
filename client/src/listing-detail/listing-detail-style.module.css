@@ -1,3 +1,7 @@
+.col-no-left-padding {
+  padding-left: 0;
+}
+
 .title {
   margin-top: 1.6rem;
   font-size: 1.5em;
@@ -65,25 +69,24 @@
   width: 100%;
 }
 
-.host-overview {
-  margin-top: 2em;
+.class-overview {
+  margin-top: 3rem;
 }
 
 .class-highlights-wrapper {
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
+  /* border-top-color: rgb(221, 221, 221);
+  border-top-width: 1px !important;
+  border-top-style: solid !important;
+  border-bottom-color: rgb(221, 221, 221);
+  border-bottom-width: 1px !important;
+  border-bottom-style: solid !important; */
 }
 
 .class-highlights {
   padding-top: 2rem;
   padding-bottom: 2rem;
-  border-top-color: rgb(221, 221, 221);
-  border-top-width: 1px !important;
-  border-top-style: solid !important;
-  border-bottom-color: rgb(221, 221, 221);
-  border-bottom-width: 1px !important;
-  border-bottom-style: solid !important;
-  padding-left: 0;
 }
 
 .class-highlight-icon {
