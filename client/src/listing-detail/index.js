@@ -125,18 +125,21 @@ export const ListingDetail = () => {
               </Row>
             }
             <Row className={css['host-info']}>
-              <Col>
-                <AvatarInitials firstName={experience.host.firstName} lastName={experience.host.lastName}>
-                  <h4>Meet your host, {experience.host.firstName}</h4>
-                </AvatarInitials>
+              <AvatarInitials
+                firstName={experience.host.firstName}
+                lastName={experience.host.lastName}>
+                <Col sm={2}>
+                </Col>
+              </AvatarInitials>
+              <Col className={css['col-no-horizontal-padding']}>
+                <h4 className={css['host-name']}>Meet your host, {experience.host.firstName}</h4>
+                <div>Member since {experience.host.memberSince}</div>
               </Col>
             </Row>
           </Col>
           <Col>
             <h4>What you'll do</h4>
-            <ReadMore
-              text={experience.course.description}
-            />
+            <ReadMore text={experience.course.description} />
           </Col>
         </Row>
 
