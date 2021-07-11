@@ -10,9 +10,10 @@ export const ReadMore = (props) => {
   const linkName = readMore ? 'Read Less << ' : 'Read More >> '
 
   return (
-    <div className={cx({ 'read-more-fade': !readMore })}>
-      <p style={{ whiteSpace: 'pre-line' }}> {props.text} </p>
-      <a className="read-more-link" onClick={()=>{setReadMore(!readMore)}}><span>{linkName}</span></a>
+    <div className={cx({ 'read-more-fade': !readMore, 'read-more': true })}>
+      <a className="read-more-link" onClick={() => { setReadMore(!readMore) }}><span>{linkName}</span></a>
+      <p style={{ whiteSpace: 'pre-line' }}> {props.text}
+      </p>
     </div>
   )
 }
