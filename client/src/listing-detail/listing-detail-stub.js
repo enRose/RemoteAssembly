@@ -34,6 +34,7 @@ export const getBy = id =>
       course: {
         hostedIn: 'English',
         durationPerClass: '2.5 hours',
+        safetyCompliance: true,
         studentCapacity: 6,
         includesEquipment: true,
         whatsIncluded: [
@@ -133,6 +134,7 @@ export const getBy = id =>
       course: {
         hostedIn: 'English',
         durationPerClass: '2.5 hours',
+        safetyCompliance: true,
         studentCapacity: 6,
         includesEquipment: true,
         whatsIncluded: [
@@ -232,6 +234,7 @@ export const getBy = id =>
       course: {
         hostedIn: 'English',
         durationPerClass: '2.5 hours',
+        safetyCompliance: true,
         studentCapacity: 6,
         includesEquipment: true,
         whatsIncluded: [
@@ -331,6 +334,7 @@ export const getBy = id =>
       course: {
         hostedIn: 'English',
         durationPerClass: '2.5 hours',
+        safetyCompliance: true,
         studentCapacity: 6,
         includesEquipment: true,
         whatsIncluded: [
@@ -430,6 +434,7 @@ export const getBy = id =>
       course: {
         hostedIn: 'English',
         durationPerClass: '2.5 hours',
+        safetyCompliance: true,
         studentCapacity: 6,
         includesEquipment: true,
         whatsIncluded: [
@@ -529,6 +534,7 @@ export const getBy = id =>
       course: {
         hostedIn: 'English',
         durationPerClass: '2.5 hours',
+        safetyCompliance: true,
         studentCapacity: 6,
         includesEquipment: true,
         whatsIncluded: [
@@ -628,6 +634,7 @@ export const getBy = id =>
       course: {
         hostedIn: 'English',
         durationPerClass: '2.5 hours',
+        safetyCompliance: true,
         studentCapacity: 6,
         includesEquipment: true,
         whatsIncluded: [
@@ -727,6 +734,7 @@ export const getBy = id =>
       course: {
         hostedIn: 'English',
         durationPerClass: '2.5 hours',
+        safetyCompliance: true,
         studentCapacity: 6,
         includesEquipment: true,
         whatsIncluded: [

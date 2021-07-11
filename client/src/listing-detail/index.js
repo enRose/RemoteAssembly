@@ -4,6 +4,10 @@ import { useHistory, useParams } from 'react-router-dom'
 import { get } from './listing-detail-service'
 import css from './listing-detail-style.module.css'
 import { ImageCarouselModal } from './image-carousel'
+import classNames from 'classnames/bind'
+import {ReadMore} from './component/read-more'
+
+let cx = classNames.bind(css)
 
 export const ListingDetail = () => {
   let { id } = useParams()
@@ -29,11 +33,9 @@ export const ListingDetail = () => {
         onHide={() => setModalShow(false)}
       />
       <Container fluid='lg' className={css.container} >
-        <Row className={css.row}>
-          <h3 className={css.title}>{experience.title}</h3>
-        </Row>
-        <Row className={`${css['review-highlight']} ${css.row}`}>
-          <Button variant="light" className={css['star-icon-button']}>
+        <h3 className={css.title}>{experience.title}</h3>
+        <div className={`${css['review-highlight']}`}>
+          <Button variant="light" className={`${css['star-icon-button']}`}>
             <span className={css['star-icon']}>
               <i className={`bi bi-star-fill ${css['star-icon-colour']}`}></i>
             </span>
@@ -48,7 +50,8 @@ export const ListingDetail = () => {
               {experience.location.city}
             </span>
           </Button>
-        </Row>
+        </div>
+
         <Row className={`justify-content-center ${css['image-group']}`}
           onClick={() => setModalShow(true)}>
           <Col className={css['first-image-col']} sm={4}>
@@ -87,7 +90,7 @@ export const ListingDetail = () => {
         </Row>
 
         <Row className={css['class-overview']}>
-          <Col className={css['col-no-left-padding']}>
+          <Col>
             <h4 >Class hosted by {experience.host.firstName}</h4>
             <Row>
               <Col>
@@ -96,32 +99,36 @@ export const ListingDetail = () => {
                 <span>Hosted in {experience.course.hostedIn}</span>
               </Col>
             </Row>
-            <Row className={css['class-highlights-wrapper']}>
-              <Col className={css['class-highlights']}>
-                <Row className={css['class-highlight-item']}>
-                  <Col>
-                    <i className={`bi bi-people ${css['class-highlight-icon']}`}></i>
-                    <span>Up to {experience.course.studentCapacity} people</span>
-                  </Col>
-                </Row>
-                {
-                  experience.course.includesEquipment &&
-                  <Row>
-                    <Col>
-                      <i className={`bi bi-brush ${css['class-highlight-icon']}`}></i>
-                      <span>Includes equipment</span>
-                    </Col>
-                  </Row>
-                }
-              </Col>
+            <Row className={css['class-highlights']}>
               <Col>
-
+                <i className={`bi bi-people ${css['class-highlight-icon']}`}></i>
+                <span>Up to {experience.course.studentCapacity} people</span>
               </Col>
             </Row>
+            {
+              experience.course.includesEquipment &&
+              <Row className={css['class-highlights']}>
+                <Col>
+                  <i className={`bi bi-brush ${css['class-highlight-icon']}`}></i>
+                  <span>Includes equipment</span>
+                </Col>
+              </Row>
+            }
+            {
+              experience.course.safetyCompliance &&
+              <Row className={css['class-highlights']}>
+                <Col>
+                  <i className={`bi bi-cone-striped ${css['class-highlight-icon']}`}></i>
+                  <span>Safety compliance</span>
+                </Col>
+              </Row>
+            }
           </Col>
           <Col>
             <h4>What you'll do</h4>
-            <p style={{ whiteSpace: 'pre-line' }}>{experience.course.description}</p>
+            <ReadMore 
+              text={experience.course.description}
+            />
           </Col>
         </Row>
 
