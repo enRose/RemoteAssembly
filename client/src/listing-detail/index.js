@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { Card, Navbar, Col, Image, Container, Row, Button } from 'react-bootstrap'
-import { useHistory, useParams } from 'react-router-dom'
+import { Col, Image, Container, Row, Button } from 'react-bootstrap'
+import { useParams } from 'react-router-dom'
 import { get } from './listing-detail-service'
 import css from './listing-detail-style.module.css'
-import { ImageCarouselModal } from './image-carousel'
+import { ImageCarouselModal } from './component/image-carousel/image-carousel'
 import classNames from 'classnames/bind'
-import {ReadMore} from './component/read-more'
+import { ReadMore } from './component/read-more/read-more'
+import { AvatarInitials } from './component/avatar-initials'
 
 let cx = classNames.bind(css)
 
@@ -123,10 +124,17 @@ export const ListingDetail = () => {
                 </Col>
               </Row>
             }
+            <Row className={css['host-info']}>
+              <Col>
+                <AvatarInitials firstName={experience.host.firstName} lastName={experience.host.lastName}>
+                  <h4>Meet your host, {experience.host.firstName}</h4>
+                </AvatarInitials>
+              </Col>
+            </Row>
           </Col>
           <Col>
             <h4>What you'll do</h4>
-            <ReadMore 
+            <ReadMore
               text={experience.course.description}
             />
           </Col>
