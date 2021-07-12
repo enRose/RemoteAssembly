@@ -6,7 +6,7 @@
   white-space: nowrap;
   overflow: hidden;
   position: relative;
-  height: 7.5em; /* exactly three lines */
+  height: 7.5em; /* root font size is 16px, root line height is 1.5em, set to exactly 5 lines */
 }
 
 .read-more-fade:after {
