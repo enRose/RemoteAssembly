@@ -90,7 +90,7 @@ export const ListingDetail = () => {
           </Col>
         </Row>
 
-        <Row className={css['class-overview']}>
+        <Row className={css['spacing-md']}>
           <Col>
             <h4 >Class hosted by {experience.host.firstName}</h4>
             <Row>
@@ -124,7 +124,7 @@ export const ListingDetail = () => {
                 </Col>
               </Row>
             }
-            <Row className={css['host-info']}>
+            <Row className={css['spacing-md']}>
               <AvatarInitials
                 firstName={experience.host.firstName}
                 lastName={experience.host.lastName}>
@@ -136,17 +136,30 @@ export const ListingDetail = () => {
                 <div>Member since {experience.host.memberSince}</div>
               </Col>
             </Row>
+            <Row className={css['spacing-sm']}>
+              <Col sm={1}>
+                <span className={css['star-icon']}>
+                  <i className={`bi bi-star-fill ${css['star-icon-colour']}`}></i>
+                </span>
+              </Col>
+              <Col className={css['col-no-horizontal-padding']}>
+                {experience.review.numOfReviews} Reviews
+              </Col>
+              <Col><i class="bi bi-patch-check"></i> Identity verified</Col>
+            </Row>
+
+            <Row>
+              <Col>
+                <ReadMore text={experience.host.bio} />
+              </Col>
+            </Row>
+
           </Col>
           <Col>
             <h4>What you'll do</h4>
             <ReadMore text={experience.course.description} />
           </Col>
         </Row>
-
-
-
-
-
       </Container >
     </>
   )

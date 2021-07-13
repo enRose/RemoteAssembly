@@ -3,6 +3,14 @@
   padding-right: 0;
 }
 
+.spacing-md {
+  margin-top: 3rem;
+}
+
+.spacing-sm {
+  margin-top: 1rem;
+}
+
 .title {
   margin-top: 1.6rem;
   font-size: 1.5em;
@@ -75,20 +83,12 @@
   width: 100%;
 }
 
-.class-overview {
-  margin-top: 3rem;
-}
-
 .class-highlights {
   padding-top: 2rem;
 }
 
 .class-highlight-icon {
   margin-right: 1rem;
-}
-
-.host-info {
-  margin-top: 2rem;
 }
 
 .host-name {
