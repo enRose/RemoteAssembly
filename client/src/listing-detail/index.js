@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Col, Image, Container, Row, Button } from 'react-bootstrap'
+import { Col, Image, Container, Row, Button, Badge } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 import { get } from './listing-detail-service'
 import css from './listing-detail-style.module.css'
@@ -7,6 +7,7 @@ import { ImageCarouselModal } from './component/image-carousel/image-carousel'
 import classNames from 'classnames/bind'
 import { ReadMore } from './component/read-more/read-more'
 import { AvatarInitials } from './component/avatar-initials'
+import "bootstrap/dist/css/bootstrap.min.css"
 
 let cx = classNames.bind(css)
 
@@ -94,36 +95,34 @@ export const ListingDetail = () => {
           <Col>
             <h4 >Class hosted by {experience.host.firstName}</h4>
             <Row>
-              <Col>
+              <Col sm={3}>
                 <span>{experience.course.durationPerClass}</span>
                 <span style={{ marginRight: '.2rem', marginLeft: '.2rem' }} aria-hidden="true">·</span>
                 <span>Hosted in {experience.course.hostedIn}</span>
               </Col>
-            </Row>
-            <Row className={css['class-highlights']}>
               <Col>
-                <i className={`bi bi-people ${css['class-highlight-icon']}`}></i>
-                <span>Up to {experience.course.studentCapacity} people</span>
+                <div>
+                  <Badge className={css['badge-icon']} variant="info">
+                  <span>Up to {experience.course.studentCapacity} people</span>
+                  </Badge>
+                  <Badge className={css['badge-icon']} variant="secondary">
+                  <span>Includes equipment</span>
+                  </Badge>
+                  <Badge className={css['badge-icon']} variant="success">
+                  <span>Safety compliance</span>
+                  </Badge>
+                </div>
+              </Col>
+              
+            </Row>
+
+            <Row className={css['spacing-sm']}>
+              <Col>
+                <div style={{ whiteSpace: 'pre-line' }}> {experience.course.description}</div>
               </Col>
             </Row>
-            {
-              experience.course.includesEquipment &&
-              <Row className={css['class-highlights']}>
-                <Col>
-                  <i className={`bi bi-brush ${css['class-highlight-icon']}`}></i>
-                  <span>Includes equipment</span>
-                </Col>
-              </Row>
-            }
-            {
-              experience.course.safetyCompliance &&
-              <Row className={css['class-highlights']}>
-                <Col>
-                  <i className={`bi bi-cone-striped ${css['class-highlight-icon']}`}></i>
-                  <span>Safety compliance</span>
-                </Col>
-              </Row>
-            }
+
+
             <Row className={css['spacing-md']}>
               <AvatarInitials
                 firstName={experience.host.firstName}
@@ -155,11 +154,11 @@ export const ListingDetail = () => {
             </Row>
 
           </Col>
-          <Col>
-            <h4>What you'll do</h4>
-            <ReadMore text={experience.course.description} />
-          </Col>
+
+          <hr class={css['divider']} style={{ borderTopColor: 'rgb(221, 221, 221)' }}></hr>
         </Row>
+
+
       </Container >
     </>
   )

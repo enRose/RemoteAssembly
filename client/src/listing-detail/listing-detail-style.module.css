@@ -83,14 +83,18 @@
   width: 100%;
 }
 
-.class-highlights {
-  padding-top: 2rem;
-}
-
-.class-highlight-icon {
-  margin-right: 1rem;
+.badge-icon {
+  margin-right: .5rem;
 }
 
 .host-name {
   margin-bottom: 0;
+}
+
+.divider-bottom {
+  border-bottom-width: 1px !important;
+  border-bottom-style: solid !important;
+  border-bottom-color: rgb(221, 221, 221);
+  width: 100%;
+  padding-bottom: .5rem;
 }
