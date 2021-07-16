@@ -100,23 +100,24 @@ export const ListingDetail = () => {
                 <span style={{ marginRight: '.2rem', marginLeft: '.2rem' }} aria-hidden="true">·</span>
                 <span>Hosted in {experience.course.hostedIn}</span>
               </Col>
+            </Row>
+            <Row className={css['spacing-sm']}>
               <Col>
                 <div>
-                  <Badge className={css['badge-icon']} variant="info">
-                  <span>Up to {experience.course.studentCapacity} people</span>
+                  <Badge className={`${css['badge-icon']}`} variant="info">
+                    Up to {experience.course.studentCapacity} people
                   </Badge>
                   <Badge className={css['badge-icon']} variant="secondary">
-                  <span>Includes equipment</span>
+                    <span>Includes equipment</span>
                   </Badge>
                   <Badge className={css['badge-icon']} variant="success">
-                  <span>Safety compliance</span>
+                    <span>Safety compliance</span>
                   </Badge>
                 </div>
               </Col>
-              
             </Row>
 
-            <Row className={css['spacing-sm']}>
+            <Row className={`${css['spacing-sm']} ${css['divider-bottom']}`}>
               <Col>
                 <div style={{ whiteSpace: 'pre-line' }}> {experience.course.description}</div>
               </Col>
@@ -127,7 +128,7 @@ export const ListingDetail = () => {
               <AvatarInitials
                 firstName={experience.host.firstName}
                 lastName={experience.host.lastName}>
-                <Col sm={2}>
+                <Col sm={1}>
                 </Col>
               </AvatarInitials>
               <Col className={css['col-no-horizontal-padding']}>
@@ -136,29 +137,32 @@ export const ListingDetail = () => {
               </Col>
             </Row>
             <Row className={css['spacing-sm']}>
-              <Col sm={1}>
+              <Col>
                 <span className={css['star-icon']}>
-                  <i className={`bi bi-star-fill ${css['star-icon-colour']}`}></i>
+                  <i className={`bi bi-star-fill ${css['star-icon-colour']}`}>
+                  </i>
+                  {experience.review.stars}
                 </span>
+                <span style={{ marginLeft: '1rem' }}><i class="bi bi-patch-check"></i> Identity verified</span>
               </Col>
-              <Col className={css['col-no-horizontal-padding']}>
-                {experience.review.numOfReviews} Reviews
+            </Row>
+            <Row className={`${css['spacing-sm']} ${css['divider-bottom']}`}>
+              <Col>
+                {experience.host.bio}
               </Col>
-              <Col><i class="bi bi-patch-check"></i> Identity verified</Col>
             </Row>
 
-            <Row>
+            <Row className={`${css['spacing-sm']} ${css['divider-bottom']}`}>
               <Col>
-                <ReadMore text={experience.host.bio} />
+                <h4>
+                  {experience.review.stars}
+                  <span> ({experience.review.numOfReviews} Reviews)</span>
+                </h4>
               </Col>
             </Row>
 
           </Col>
-
-          <hr class={css['divider']} style={{ borderTopColor: 'rgb(221, 221, 221)' }}></hr>
         </Row>
-
-
       </Container >
     </>
   )

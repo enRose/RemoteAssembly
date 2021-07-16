@@ -28,12 +28,12 @@
 
 .star-icon {
   font-size: 1rem !important;
-  margin-right: .2rem !important;
-  display: inline-flex !important;
+  display: inline-flex !important; 
 }
 
 .star-icon-colour {
   color:rgb(255, 56, 92);
+  margin-right: .2rem;
 }
 
 .review-score-wrapper {
@@ -92,9 +92,9 @@
 }
 
 .divider-bottom {
-  border-bottom-width: 1px !important;
-  border-bottom-style: solid !important;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
   border-bottom-color: rgb(221, 221, 221);
   width: 100%;
-  padding-bottom: .5rem;
+  padding-bottom: 3rem;
 }
