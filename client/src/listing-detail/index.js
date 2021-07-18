@@ -5,8 +5,8 @@ import { get } from './listing-detail-service'
 import css from './listing-detail-style.module.css'
 import { ImageCarouselModal } from './component/image-carousel/image-carousel'
 import classNames from 'classnames/bind'
-import { ReadMore } from './component/read-more/read-more'
 import { AvatarInitials } from './component/avatar-initials'
+import {ReviewModal} from './component/review-modal/review-modal'
 import "bootstrap/dist/css/bootstrap.min.css"
 
 let cx = classNames.bind(css)
@@ -15,6 +15,7 @@ export const ListingDetail = () => {
   let { id } = useParams()
   const [experience, setExperience] = useState(undefined)
   const [modalShow, setModalShow] = useState(false)
+  const [showReviews, setShowReviews] = useState(false)
 
   useEffect(async () => {
     console.log(id)
@@ -34,10 +35,16 @@ export const ListingDetail = () => {
         show={modalShow}
         onHide={() => setModalShow(false)}
       />
+      <ReviewModal 
+        reviews={experience.review.by}
+        show={showReviews}
+        onHide={() => setShowReviews(false)}
+      />
       <Container fluid='lg' className={css.container} >
         <h3 className={css.title}>{experience.title}</h3>
         <div className={`${css['review-highlight']}`}>
-          <Button variant="light" className={`${css['star-icon-button']}`}>
+          <Button variant="light" className={`${css['star-icon-button']}`} 
+            onClick={() => setShowReviews(true)}>
             <span className={css['star-icon']}>
               <i className={`bi bi-star-fill ${css['star-icon-colour']}`}></i>
             </span>
@@ -123,7 +130,6 @@ export const ListingDetail = () => {
               </Col>
             </Row>
 
-
             <Row className={css['spacing-md']}>
               <AvatarInitials
                 firstName={experience.host.firstName}
@@ -152,18 +158,9 @@ export const ListingDetail = () => {
               </Col>
             </Row>
 
-            <Row className={`${css['spacing-sm']} ${css['divider-bottom']}`}>
-              <Col>
-                <h4>
-                  {experience.review.stars}
-                  <span> ({experience.review.numOfReviews} Reviews)</span>
-                </h4>
-              </Col>
-            </Row>
-
-          </Col>
+         </Col>
         </Row>
-      </Container >
+      </Container>
     </>
   )
 }

@@ -5,7 +5,7 @@ export const AvatarInitials = (props) => {
   const target = React.Children.only(props.children)
 
   const cloned = React.cloneElement(target, {
-    'data-initials': `${props.firstName.charAt(0)}${props.lastName.charAt(0)}`,
+    'data-initials': `${props.firstName.charAt(0)}${(props.lastName || '').charAt(0)}`,
     className: `${props.style || ''}`
   })
 
