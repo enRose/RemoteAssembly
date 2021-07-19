@@ -6,7 +6,7 @@ import css from './listing-detail-style.module.css'
 import { ImageCarouselModal } from './component/image-carousel/image-carousel'
 import classNames from 'classnames/bind'
 import { AvatarInitials } from './component/avatar-initials'
-import {ReviewModal} from './component/review-modal/review-modal'
+import { ReviewModal } from './component/review-modal/review-modal'
 import "bootstrap/dist/css/bootstrap.min.css"
 
 let cx = classNames.bind(css)
@@ -35,7 +35,9 @@ export const ListingDetail = () => {
         show={modalShow}
         onHide={() => setModalShow(false)}
       />
-      <ReviewModal 
+      <ReviewModal
+        stars={experience.review.stars}
+        numOfReviews={experience.review.numOfReviews}
         reviews={experience.review.by}
         show={showReviews}
         onHide={() => setShowReviews(false)}
@@ -43,7 +45,7 @@ export const ListingDetail = () => {
       <Container fluid='lg' className={css.container} >
         <h3 className={css.title}>{experience.title}</h3>
         <div className={`${css['review-highlight']}`}>
-          <Button variant="light" className={`${css['star-icon-button']}`} 
+          <Button variant="light" className={`${css['star-icon-button']}`}
             onClick={() => setShowReviews(true)}>
             <span className={css['star-icon']}>
               <i className={`bi bi-star-fill ${css['star-icon-colour']}`}></i>
@@ -154,11 +156,13 @@ export const ListingDetail = () => {
             </Row>
             <Row className={`${css['spacing-sm']} ${css['divider-bottom']}`}>
               <Col>
-                {experience.host.bio}
+                <p>{experience.host.bio}</p>
+                <Button variant="outline-secondary"
+                  onClick={() => setShowReviews(true)}>Show reviews</Button>
               </Col>
             </Row>
 
-         </Col>
+          </Col>
         </Row>
       </Container>
     </>

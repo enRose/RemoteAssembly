@@ -1,5 +1,7 @@
-import { Row, Modal, Button } from 'react-bootstrap'
+import { Row, Col, Modal, Button, Container } from 'react-bootstrap'
 import { AvatarInitials } from '../avatar-initials'
+import css from './review-modal-style.module.css'
+
 
 export const ReviewModal = (props) => {
   return (
@@ -18,19 +20,40 @@ export const ReviewModal = (props) => {
         </Modal.Header>
       }
       <Modal.Body>
-        { 
-          props.reviews.map(x =>
-            <Row>
-              <AvatarInitials
-                firstName={x.userName}>
-                <div>
+        {
+          <Container>
+            <Row className={css['spacing-sm']}>
+              <Col>
+                <span className={css['star-icon']}>
+                  <i className={`bi bi-star-fill ${css['star-icon-colour']}`}>
+                  </i>
+                  {`${props.stars} (${props.numOfReviews} reviews)`} 
+                </span>
+              </Col>
+            </Row>
+          {props.reviews.map(x =>
+              <>
+              <Row className={css['spacing-sm']}>
+                <AvatarInitials
+                  firstName={x.userName}>
+                  <Col sm={1}>
+                  </Col>
+
+                </AvatarInitials>
+                <Col>
                   <div>{x.userName}</div>
                   <span>Member since {x.memberSince}</span>
-                </div>
-              </AvatarInitials>
-              <p>{x.utterance}</p>
-           </Row>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                <p>{x .utterance}</p>
+                </Col>
+              </Row>
+            </>
           )}
+          </Container>
+      }
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Close</Button>

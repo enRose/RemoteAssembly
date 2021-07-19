@@ -1,0 +1,17 @@
+.spacing-md {
+  margin-top: 3rem;
+}
+
+.spacing-sm {
+  margin-top: 1rem;
+}
+
+.star-icon {
+  font-size: 1rem !important;
+  display: inline-flex !important; 
+}
+
+.star-icon-colour {
+  color:rgb(255, 56, 92);
+  margin-right: .2rem;
+}
