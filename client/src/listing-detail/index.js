@@ -133,15 +133,14 @@ export const ListingDetail = () => {
             </Row>
 
             <Row className={css['spacing-md']}>
-              <AvatarInitials
-                firstName={experience.host.firstName}
-                lastName={experience.host.lastName}>
-                <Col sm={1}>
-                </Col>
-              </AvatarInitials>
-              <Col className={css['col-no-horizontal-padding']}>
-                <h4 className={css['host-name']}>Meet your host, {experience.host.firstName}</h4>
-                <div>Member since {experience.host.memberSince}</div>
+              <Col>
+                <AvatarInitials
+                  firstName={experience.host.firstName}
+                  lastName={experience.host.lastName}>
+                  <span>
+                    Meet your host, {experience.host.firstName}
+                  </span>
+                </AvatarInitials>
               </Col>
             </Row>
             <Row className={css['spacing-sm']}>
@@ -152,6 +151,7 @@ export const ListingDetail = () => {
                   {experience.review.stars}
                 </span>
                 <span style={{ marginLeft: '1rem' }}><i class="bi bi-patch-check"></i> Identity verified</span>
+                <span style={{ marginLeft: '1rem' }}><i class="bi bi-person-plus"></i> Member since {experience.host.memberSince}</span>
               </Col>
             </Row>
             <Row className={`${css['spacing-sm']} ${css['divider-bottom']}`}>

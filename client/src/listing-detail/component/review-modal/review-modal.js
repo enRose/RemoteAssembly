@@ -43,16 +43,15 @@ export const ReviewModal = (props) => {
                   <Row className={css['spacing-sm']}>
                     <AvatarInitials
                       firstName={x.userName}>
-                      <Col sm={1}>
+                      <Col xs={2}>
                       </Col>
-
                     </AvatarInitials>
                     <Col>
                       <div>{x.userName}</div>
                       <span>Member since {x.memberSince}</span>
                     </Col>
                   </Row>
-                  <Row>
+                  <Row className={css['spacing-sm']}>
                     <Col>
                       <p>{x.utterance}</p>
                     </Col>
