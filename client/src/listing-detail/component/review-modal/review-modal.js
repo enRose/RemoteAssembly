@@ -4,8 +4,6 @@ import { AvatarInitials } from '../avatar-initials'
 import css from './review-modal-style.module.css'
 
 export const ReviewModal = (props) => {
-  const modalBody = useRef(null)
-  const [onScrollRegistered, setOnScrollRegistered] = useState(false)
 
   const onScroll = () => {
     const modal = document.querySelectorAll('div.modal.show')[0]
@@ -58,7 +56,6 @@ export const ReviewModal = (props) => {
                   </Row>
                 </>
               )
-
             }
           </div>
         </Modal.Body>
