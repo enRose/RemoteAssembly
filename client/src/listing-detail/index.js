@@ -38,7 +38,7 @@ export const ListingDetail = () => {
       <ReviewModal
         stars={experience.review.stars}
         numOfReviews={experience.review.numOfReviews}
-        reviews={experience.review.by}
+        reviewsFirstPage={experience.review.by}
         show={showReviews}
         onHide={() => setShowReviews(false)}
       />

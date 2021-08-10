@@ -4,12 +4,36 @@ import { AvatarInitials } from '../avatar-initials'
 import css from './review-modal-style.module.css'
 
 export const ReviewModal = (props) => {
+  const [pageNumber, setPageNumber] = useState(2)
 
   const onScroll = () => {
     const modal = document.querySelectorAll('div.modal.show')[0]
 
     modal && modal.addEventListener('scroll', () => console.log('scrolling'))
   }
+
+  const {
+    reviews,
+    hasMore,
+    loading,
+    error
+  } = useReviewFetch(query, pageNumber)
+
+  const observer = useRef()
+
+  const lastReviewElementRef = useCallback(node => {
+    if (loading) return
+
+    if (observer.current) observer.current.disconnect()
+
+    observer.current = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting && hasMore) {
+        setPageNumber(prevPageNumber => prevPageNumber + 1)
+      }
+    })
+
+    if (node) observer.current.observe(node)
+  }, [loading, hasMore])
 
   return (
     <Container>
@@ -33,30 +57,53 @@ export const ReviewModal = (props) => {
             </Row>
           </Modal.Header>
         }
-        <Modal.Body >
+        <Modal.Body>
           <div>
-            {
-              props.reviews.map(x =>
-                <>
+            {[...props.reviewsFirstPage, ...reviews].map((review, index) => {
+              if (reviews.length === index + 1) {
+                <div ref={lastReviewElementRef} key={review}>
                   <Row className={css['spacing-sm']}>
                     <AvatarInitials
-                      firstName={x.userName}>
+                      firstName={review.userName}>
                       <Col xs={2}>
                       </Col>
                     </AvatarInitials>
                     <Col>
-                      <div>{x.userName}</div>
-                      <span>Member since {x.memberSince}</span>
+                      <div>{review.userName}</div>
+                      <span>Member since {review.memberSince}</span>
                     </Col>
                   </Row>
                   <Row className={css['spacing-sm']}>
                     <Col>
-                      <p>{x.utterance}</p>
+                      <p>{review.utterance}</p>
                     </Col>
                   </Row>
-                </>
-              )
+                </div>
+              }
+              else {
+                <div key={review}>
+                  <Row className={css['spacing-sm']}>
+                    <AvatarInitials
+                      firstName={review.userName}>
+                      <Col xs={2}>
+                      </Col>
+                    </AvatarInitials>
+                    <Col>
+                      <div>{review.userName}</div>
+                      <span>Member since {review.memberSince}</span>
+                    </Col>
+                  </Row>
+                  <Row className={css['spacing-sm']}>
+                    <Col>
+                      <p>{review.utterance}</p>
+                    </Col>
+                  </Row>
+                </div>
+              }
+            })
             }
+            <div>{loading && 'Loading...'}</div>
+            <div>{error && 'Error'}</div>
           </div>
         </Modal.Body>
       </Modal>
