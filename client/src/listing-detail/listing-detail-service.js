@@ -1,5 +1,5 @@
 import { config, jwt } from '../api-util'
-import { getBy } from './listing-detail-stub'
+import { getBy } from './stub/listing-detail-stub'
 
 const fake = true
 

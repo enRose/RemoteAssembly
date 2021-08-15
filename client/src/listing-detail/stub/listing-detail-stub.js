@@ -1,12 +1,12 @@
-import spr from '../res/sun-pour-room.jpg'
-import had from '../res/happy-au-day.jpg'
-import br from '../res/book-reading.jpg'
-import ic from '../res/ice-cream.jpg'
-import ib from '../res/idea-badges.jpg'
-import choreographer from '../res/choreographer.jpg'
-import meditating from '../res/meditating.jpg'
-import science from '../res/science.jpg'
-import { fakePromise } from '../stub-util'
+import spr from '../../res/sun-pour-room.jpg'
+import had from '../../res/happy-au-day.jpg'
+import br from '../../res/book-reading.jpg'
+import ic from '../../res/ice-cream.jpg'
+import ib from '../../res/idea-badges.jpg'
+import choreographer from '../../res/choreographer.jpg'
+import meditating from '../../res/meditating.jpg'
+import science from '../../res/science.jpg'
+import { fakePromise } from '../../stub-util'
 
 export const getBy = id => 
   fakePromise(() => stubList.find(x => x.id === id))
@@ -82,7 +82,7 @@ export const getBy = id =>
       review: {
         stars: 3.55,
         numOfReviews: 49,
-        by: [
+        of1stPage: [
           {
             userName: 'Tim',
             date: 'September 2019',

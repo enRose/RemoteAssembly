@@ -67,7 +67,7 @@ export const ReviewModal = (props) => {
                 return <div key={book}>{book}</div>
               }
             })}
-            {/* {[...props.reviewsFirstPage, ...reviews].map((review, index) => {
+            {/* {[...props.of1stPage, ...reviews].map((review, index) => {
               if (reviews.length === index + 1) {
                 <div ref={lastReviewElementRef} key={review}>
                   <Row className={css['spacing-sm']}>

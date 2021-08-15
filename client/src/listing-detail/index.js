@@ -39,7 +39,7 @@ export const ListingDetail = () => {
         hostId={`test`}
         stars={experience.review.stars}
         numOfReviews={experience.review.numOfReviews}
-        reviewsFirstPage={experience.review.by}
+        of1stPage={experience.review.of1stPage}
         show={showReviews}
         onHide={() => setShowReviews(false)}
       />
