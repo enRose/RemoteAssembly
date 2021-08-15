@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useCallback, useRef, useState } from "react"
 import { Row, Col, Modal, Button, Container } from 'react-bootstrap'
 import { AvatarInitials } from '../avatar-initials'
 import css from './review-modal-style.module.css'
+import { useReviewFetch } from './use-review-fetch'
 
 export const ReviewModal = (props) => {
   const [pageNumber, setPageNumber] = useState(2)
@@ -13,11 +14,11 @@ export const ReviewModal = (props) => {
   }
 
   const {
-    reviews,
+    books,
     hasMore,
     loading,
     error
-  } = useReviewFetch(query, pageNumber)
+  } = useReviewFetch(props.hostId, pageNumber)
 
   const observer = useRef()
 
@@ -59,7 +60,14 @@ export const ReviewModal = (props) => {
         }
         <Modal.Body>
           <div>
-            {[...props.reviewsFirstPage, ...reviews].map((review, index) => {
+          {books.map((book, index) => {
+              if (books.length === index + 1) {
+                return <div ref={lastReviewElementRef} key={book}>{book}</div>
+              } else {
+                return <div key={book}>{book}</div>
+              }
+            })}
+            {/* {[...props.reviewsFirstPage, ...reviews].map((review, index) => {
               if (reviews.length === index + 1) {
                 <div ref={lastReviewElementRef} key={review}>
                   <Row className={css['spacing-sm']}>
@@ -101,7 +109,7 @@ export const ReviewModal = (props) => {
                 </div>
               }
             })
-            }
+            } */}
             <div>{loading && 'Loading...'}</div>
             <div>{error && 'Error'}</div>
           </div>

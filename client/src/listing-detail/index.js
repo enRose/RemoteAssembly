@@ -36,6 +36,7 @@ export const ListingDetail = () => {
         onHide={() => setModalShow(false)}
       />
       <ReviewModal
+        hostId={`test`}
         stars={experience.review.stars}
         numOfReviews={experience.review.numOfReviews}
         reviewsFirstPage={experience.review.by}
