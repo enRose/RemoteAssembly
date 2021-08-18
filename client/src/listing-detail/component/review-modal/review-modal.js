@@ -7,14 +7,8 @@ import { useReviewFetch } from './use-review-fetch'
 export const ReviewModal = (props) => {
   const [pageNumber, setPageNumber] = useState(2)
 
-  const onScroll = () => {
-    const modal = document.querySelectorAll('div.modal.show')[0]
-
-    modal && modal.addEventListener('scroll', () => console.log('scrolling'))
-  }
-
   const {
-    books,
+    reviews,
     hasMore,
     loading,
     error
@@ -39,7 +33,6 @@ export const ReviewModal = (props) => {
   return (
     <Container>
       <Modal
-        onEntered={onScroll}
         {...props}
         size="lg"
         aria-labelledby="contained-review-modal-title-vcenter"
@@ -60,16 +53,9 @@ export const ReviewModal = (props) => {
         }
         <Modal.Body>
           <div>
-          {books.map((book, index) => {
-              if (books.length === index + 1) {
-                return <div ref={lastReviewElementRef} key={book}>{book}</div>
-              } else {
-                return <div key={book}>{book}</div>
-              }
-            })}
-            {/* {[...props.of1stPage, ...reviews].map((review, index) => {
+            {reviews.map((review, index) => {
               if (reviews.length === index + 1) {
-                <div ref={lastReviewElementRef} key={review}>
+                return <div ref={lastReviewElementRef} key={review.userName}>
                   <Row className={css['spacing-sm']}>
                     <AvatarInitials
                       firstName={review.userName}>
@@ -89,7 +75,7 @@ export const ReviewModal = (props) => {
                 </div>
               }
               else {
-                <div key={review}>
+                return <div key={review.userName}>
                   <Row className={css['spacing-sm']}>
                     <AvatarInitials
                       firstName={review.userName}>
@@ -109,7 +95,7 @@ export const ReviewModal = (props) => {
                 </div>
               }
             })
-            } */}
+            }
             <div>{loading && 'Loading...'}</div>
             <div>{error && 'Error'}</div>
           </div>
