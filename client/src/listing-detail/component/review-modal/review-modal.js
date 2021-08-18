@@ -52,53 +52,30 @@ export const ReviewModal = (props) => {
           </Modal.Header>
         }
         <Modal.Body>
-          <div>
-            {reviews.map((review, index) => {
-              if (reviews.length === index + 1) {
-                return <div ref={lastReviewElementRef} key={review.userName}>
-                  <Row className={css['spacing-sm']}>
-                    <AvatarInitials
-                      firstName={review.userName}>
-                      <Col xs={2}>
-                      </Col>
-                    </AvatarInitials>
-                    <Col>
-                      <div>{review.userName}</div>
-                      <span>Member since {review.memberSince}</span>
+          <>
+            {reviews.map((review, index) =>
+              <div ref={reviews.length === index + 1 ? lastReviewElementRef : null} key={review.userName}>
+                <Row className={css['spacing-sm']}>
+                  <AvatarInitials
+                    firstName={review.userName}>
+                    <Col xs={2}>
                     </Col>
-                  </Row>
-                  <Row className={css['spacing-sm']}>
-                    <Col>
-                      <p>{review.utterance}</p>
-                    </Col>
-                  </Row>
-                </div>
-              }
-              else {
-                return <div key={review.userName}>
-                  <Row className={css['spacing-sm']}>
-                    <AvatarInitials
-                      firstName={review.userName}>
-                      <Col xs={2}>
-                      </Col>
-                    </AvatarInitials>
-                    <Col>
-                      <div>{review.userName}</div>
-                      <span>Member since {review.memberSince}</span>
-                    </Col>
-                  </Row>
-                  <Row className={css['spacing-sm']}>
-                    <Col>
-                      <p>{review.utterance}</p>
-                    </Col>
-                  </Row>
-                </div>
-              }
-            })
-            }
+                  </AvatarInitials>
+                  <Col>
+                    <div>{review.userName}</div>
+                    <span>Member since {review.memberSince}</span>
+                  </Col>
+                </Row>
+                <Row className={css['spacing-sm']}>
+                  <Col>
+                    <p>{review.utterance}</p>
+                  </Col>
+                </Row>
+              </div>
+            )}
             <div>{loading && 'Loading...'}</div>
             <div>{error && 'Error'}</div>
-          </div>
+          </>
         </Modal.Body>
       </Modal>
     </Container>
