@@ -15,3 +15,7 @@
   color:rgb(255, 56, 92);
   margin-right: .2rem;
 }
+
+.no-left-padding {
+  padding-left: 0;
+}

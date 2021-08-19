@@ -1,6 +1,6 @@
 [data-initials]:before {
-  background: #099bdd;
-  color: white;
+  background-color: var(--random-colour-var);  
+  color: inherit;
   opacity: 1; 
   content: attr(data-initials); 
   display: inline-block; 
