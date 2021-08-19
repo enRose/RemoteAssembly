@@ -58,10 +58,10 @@ export const ReviewModal = (props) => {
                 <Row className={css['spacing-sm']}>
                   <AvatarInitials
                     firstName={review.userName}>
-                    <Col xs={2}>
+                    <Col xs={2} lg={1}>
                     </Col>
                   </AvatarInitials>
-                  <Col className={css['no-left-padding']}>
+                  <Col>
                     <div>{review.userName}</div>
                     <span>{review.reviewedOn}</span>
                   </Col>
