@@ -7,7 +7,9 @@ import { ImageCarouselModal } from './component/image-carousel/image-carousel'
 import classNames from 'classnames/bind'
 import { AvatarInitials } from './component/avatar-initials'
 import { ReviewModal } from './component/review-modal/review-modal'
-import "bootstrap/dist/css/bootstrap.min.css"
+import { DatePicker, Space, Card, Affix } from 'antd'
+
+const { RangePicker } = DatePicker
 
 let cx = classNames.bind(css)
 
@@ -16,6 +18,7 @@ export const ListingDetail = () => {
   const [experience, setExperience] = useState(undefined)
   const [modalShow, setModalShow] = useState(false)
   const [showReviews, setShowReviews] = useState(false)
+  const [container, setContainer] = useState(null)
 
   useEffect(async () => {
     console.log(id)
@@ -23,6 +26,11 @@ export const ListingDetail = () => {
     console.log(response.json())
     response.ok && setExperience(response.json())
   }, [])
+
+  const onChange = (value, dateString) => {
+    console.log('Selected Time: ', value)
+    console.log('Formatted Selected Time: ', dateString)
+  }
 
   if (!experience) {
     return null
@@ -43,7 +51,7 @@ export const ListingDetail = () => {
         show={showReviews}
         onHide={() => setShowReviews(false)}
       />
-      <Container fluid='lg' className={css.container} >
+      <Container fluid='lg' className={css.container}>
         <h3 className={css.title}>{experience.title}</h3>
         <div className={`${css['review-highlight']}`}>
           <Button variant="light" className={`${css['star-icon-button']}`}
@@ -101,7 +109,8 @@ export const ListingDetail = () => {
           </Col>
         </Row>
 
-        <Row className={css['spacing-md']}>
+
+        <Row className={css['spacing-md']} >
           <Col>
             <h4 >Class hosted by {experience.host.firstName}</h4>
             <Row>
@@ -132,37 +141,46 @@ export const ListingDetail = () => {
                 <div style={{ whiteSpace: 'pre-line' }}> {experience.course.description}</div>
               </Col>
             </Row>
+          </Col>
 
-            <Row className={css['spacing-md']}>
-              <Col>
-                <AvatarInitials
-                  firstName={experience.host.firstName}
-                  lastName={experience.host.lastName}>
-                  <span>
-                    Meet your host, {experience.host.firstName}
-                  </span>
-                </AvatarInitials>
-              </Col>
-            </Row>
-            <Row className={css['spacing-sm']}>
-              <Col>
-                <span className={css['star-icon']}>
-                  <i className={`bi bi-star-fill ${css['star-icon-colour']}`}>
-                  </i>
-                  {experience.review.stars}
-                </span>
-                <span style={{ marginLeft: '1rem' }}><i class="bi bi-patch-check"></i> Identity verified</span>
-                <span style={{ marginLeft: '1rem' }}><i class="bi bi-person-plus"></i> Member since {experience.host.memberSince}</span>
-              </Col>
-            </Row>
-            <Row className={`${css['spacing-sm']} ${css['divider-bottom']}`}>
-              <Col>
-                <p>{experience.host.bio}</p>
-                <Button variant="outline-secondary"
-                  onClick={() => setShowReviews(true)}>Show reviews</Button>
-              </Col>
-            </Row>
+          <Col md={4}>
+            <Row>
+              <Affix offsetTop={90}>
+                <Card title="Card title" style={{ width: 300 }}>
+                  <RangePicker />
+                </Card>
+              </Affix>
 
+            </Row>
+          </Col>
+        </Row>
+        <Row className={css['spacing-md']}>
+          <Col>
+            <AvatarInitials
+              firstName={experience.host.firstName}
+              lastName={experience.host.lastName}>
+              <span>
+                Meet your host, {experience.host.firstName}
+              </span>
+            </AvatarInitials>
+          </Col>
+        </Row>
+        <Row className={css['spacing-sm']}>
+          <Col>
+            <span className={css['star-icon']}>
+              <i className={`bi bi-star-fill ${css['star-icon-colour']}`}>
+              </i>
+              {experience.review.stars}
+            </span>
+            <span style={{ marginLeft: '1rem' }}><i class="bi bi-patch-check"></i> Identity verified</span>
+            <span style={{ marginLeft: '1rem' }}><i class="bi bi-person-plus"></i> Member since {experience.host.memberSince}</span>
+          </Col>
+        </Row>
+        <Row className={`${css['spacing-sm']} ${css['divider-bottom']}`}>
+          <Col>
+            <p>{experience.host.bio}</p>
+            <Button variant="outline-secondary"
+              onClick={() => setShowReviews(true)}>Show reviews</Button>
           </Col>
         </Row>
       </Container>

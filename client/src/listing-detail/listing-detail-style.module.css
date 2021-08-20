@@ -98,3 +98,8 @@
   width: 100%;
   padding-bottom: 3rem;
 }
+
+.scrollable-container {
+  height: 100px;
+  overflow-y: scroll;
+}
