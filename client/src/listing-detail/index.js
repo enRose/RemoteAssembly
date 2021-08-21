@@ -7,7 +7,15 @@ import { ImageCarouselModal } from './component/image-carousel/image-carousel'
 import classNames from 'classnames/bind'
 import { AvatarInitials } from './component/avatar-initials'
 import { ReviewModal } from './component/review-modal/review-modal'
-import { DatePicker, Space, Card, Affix } from 'antd'
+import { DatePicker, Divider, Card, Affix, Tag } from 'antd'
+import {
+  TeamOutlined,
+  FundProjectionScreenOutlined,
+  CloseCircleOutlined,
+  ExclamationCircleOutlined,
+  ClockCircleOutlined,
+  MinusCircleOutlined,
+} from '@ant-design/icons';
 
 const { RangePicker } = DatePicker
 
@@ -109,12 +117,11 @@ export const ListingDetail = () => {
           </Col>
         </Row>
 
-
         <Row className={css['spacing-md']} >
           <Col>
             <h4 >Class hosted by {experience.host.firstName}</h4>
             <Row>
-              <Col sm={3}>
+              <Col>
                 <span>{experience.course.durationPerClass}</span>
                 <span style={{ marginRight: '.2rem', marginLeft: '.2rem' }} aria-hidden="true">·</span>
                 <span>Hosted in {experience.course.hostedIn}</span>
@@ -122,25 +129,24 @@ export const ListingDetail = () => {
             </Row>
             <Row className={css['spacing-sm']}>
               <Col>
-                <div>
-                  <Badge className={`${css['badge-icon']}`} variant="info">
-                    Up to {experience.course.studentCapacity} people
-                  </Badge>
-                  <Badge className={css['badge-icon']} variant="secondary">
-                    <span>Includes equipment</span>
-                  </Badge>
-                  <Badge className={css['badge-icon']} variant="success">
-                    <span>Safety compliance</span>
-                  </Badge>
-                </div>
+                <Tag icon={<TeamOutlined />} color="cyan">
+                  Up to {experience.course.studentCapacity} people
+                </Tag>
+                <Tag icon={<FundProjectionScreenOutlined />} color="volcano">
+                  Includes equipment
+                </Tag>
+                <Tag icon={<FundProjectionScreenOutlined />} color="green">
+                  Safety compliance
+                </Tag>
               </Col>
             </Row>
-
-            <Row className={`${css['spacing-sm']} ${css['divider-bottom']}`}>
+            <Divider />
+            <Row className={`${css['spacing-sm']}`}>
               <Col>
                 <div style={{ whiteSpace: 'pre-line' }}> {experience.course.description}</div>
               </Col>
             </Row>
+            <Divider />
           </Col>
 
           <Col md={4}>
@@ -176,7 +182,7 @@ export const ListingDetail = () => {
             <span style={{ marginLeft: '1rem' }}><i class="bi bi-person-plus"></i> Member since {experience.host.memberSince}</span>
           </Col>
         </Row>
-        <Row className={`${css['spacing-sm']} ${css['divider-bottom']}`}>
+        <Row className={`${css['spacing-sm']}`}>
           <Col>
             <p>{experience.host.bio}</p>
             <Button variant="outline-secondary"
