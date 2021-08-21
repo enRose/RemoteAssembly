@@ -7,15 +7,13 @@ import { ImageCarouselModal } from './component/image-carousel/image-carousel'
 import classNames from 'classnames/bind'
 import { AvatarInitials } from './component/avatar-initials'
 import { ReviewModal } from './component/review-modal/review-modal'
-import { DatePicker, Divider, Card, Affix, Tag } from 'antd'
+import { DatePicker, Divider, Card, Affix, Tag, InputNumber, Form } from 'antd'
 import {
   TeamOutlined,
   FundProjectionScreenOutlined,
-  CloseCircleOutlined,
-  ExclamationCircleOutlined,
-  ClockCircleOutlined,
-  MinusCircleOutlined,
-} from '@ant-design/icons';
+  VerifiedOutlined,
+  StarFilled,
+} from '@ant-design/icons'
 
 const { RangePicker } = DatePicker
 
@@ -38,6 +36,10 @@ export const ListingDetail = () => {
   const onChange = (value, dateString) => {
     console.log('Selected Time: ', value)
     console.log('Formatted Selected Time: ', dateString)
+  }
+
+  function onNumOfStudentsInputChange(value) {
+    console.log('changed', value);
   }
 
   if (!experience) {
@@ -135,7 +137,7 @@ export const ListingDetail = () => {
                 <Tag icon={<FundProjectionScreenOutlined />} color="volcano">
                   Includes equipment
                 </Tag>
-                <Tag icon={<FundProjectionScreenOutlined />} color="green">
+                <Tag icon={<VerifiedOutlined />} color="green">
                   Safety compliance
                 </Tag>
               </Col>
@@ -143,7 +145,7 @@ export const ListingDetail = () => {
             <Divider />
             <Row className={`${css['spacing-sm']}`}>
               <Col>
-                <div style={{ whiteSpace: 'pre-line' }}> {experience.course.description}</div>
+                <div style={{ whiteSpace: 'pre-line' }}>{experience.course.description}</div>
               </Col>
             </Row>
             <Divider />
@@ -152,15 +154,33 @@ export const ListingDetail = () => {
           <Col md={4}>
             <Row>
               <Affix offsetTop={90}>
-                <Card title="Card title" style={{ width: 300 }}>
-                  <RangePicker />
+                <Card
+                  title={`$10 / class`}
+                  extra={
+                    <a onClick={() => setShowReviews(true)} href="#">
+                      <StarFilled style={{ color: "rgb(255, 56, 92)", marginRight: '.2rem' }} />
+                      <span>{experience.review.stars}</span></a>
+                  }
+                  style={{ width: 300 }}>
+                  <Row>
+                    <Col>
+                      <RangePicker />
+                    </Col>
+                  </Row>
+                  <Row className={`${css['spacing-sm']}`}>
+                    <Col>
+                      <Form.Item label="Students">
+                        <InputNumber className={css['number-of-students-input']} min={1} max={10} defaultValue={3} onChange={onNumOfStudentsInputChange} />
+                      </Form.Item>
+                    </Col>
+                  </Row>
                 </Card>
               </Affix>
 
             </Row>
           </Col>
         </Row>
-        <Row className={css['spacing-md']}>
+        <Row className={css['spacing-sm']}>
           <Col>
             <AvatarInitials
               firstName={experience.host.firstName}

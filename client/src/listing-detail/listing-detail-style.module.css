@@ -102,3 +102,7 @@
 svg { 
   vertical-align: baseline; 
 }
+
+.number-of-students-input {
+  width: 100%;
+}
