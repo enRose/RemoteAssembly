@@ -7,12 +7,12 @@ import { ImageCarouselModal } from './component/image-carousel/image-carousel'
 import classNames from 'classnames/bind'
 import { AvatarInitials } from './component/avatar-initials'
 import { ReviewModal } from './component/review-modal/review-modal'
-import { DatePicker, Divider, Card, Affix, Tag, InputNumber, Form } from 'antd'
+import { BookingCalendar } from './component/booking-calendar'
+import { DatePicker, Divider, Tag } from 'antd'
 import {
   TeamOutlined,
   FundProjectionScreenOutlined,
   VerifiedOutlined,
-  StarFilled,
 } from '@ant-design/icons'
 
 const { RangePicker } = DatePicker
@@ -24,7 +24,6 @@ export const ListingDetail = () => {
   const [experience, setExperience] = useState(undefined)
   const [modalShow, setModalShow] = useState(false)
   const [showReviews, setShowReviews] = useState(false)
-  const [container, setContainer] = useState(null)
 
   useEffect(async () => {
     console.log(id)
@@ -153,30 +152,10 @@ export const ListingDetail = () => {
 
           <Col md={4}>
             <Row>
-              <Affix offsetTop={90}>
-                <Card
-                  title={`$10 / class`}
-                  extra={
-                    <a onClick={() => setShowReviews(true)} href="#">
-                      <StarFilled style={{ color: "rgb(255, 56, 92)", marginRight: '.2rem' }} />
-                      <span>{experience.review.stars}</span></a>
-                  }
-                  style={{ width: 300 }}>
-                  <Row>
-                    <Col>
-                      <RangePicker />
-                    </Col>
-                  </Row>
-                  <Row className={`${css['spacing-sm']}`}>
-                    <Col>
-                      <Form.Item label="Students">
-                        <InputNumber className={css['number-of-students-input']} min={1} max={10} defaultValue={3} onChange={onNumOfStudentsInputChange} />
-                      </Form.Item>
-                    </Col>
-                  </Row>
-                </Card>
-              </Affix>
-
+              <BookingCalendar
+                title={`$10 / class`}
+                headerExtra={experience.review.stars}
+                onHeaderExtraClick={() => setShowReviews(true)} />
             </Row>
           </Col>
         </Row>
