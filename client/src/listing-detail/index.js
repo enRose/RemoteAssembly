@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Col, Image, Container, Row, Button, Badge } from 'react-bootstrap'
+import { Col, Image, Container, Row, Button } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 import { get } from './listing-detail-service'
 import css from './listing-detail-style.module.css'

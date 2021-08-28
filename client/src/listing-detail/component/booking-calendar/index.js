@@ -11,6 +11,11 @@ const { Panel } = Collapse
 
 export const BookingCalendar = (props) => {
   const [form] = Form.useForm()
+  const [numOfStudents, setNumOfStudents] = useState({
+    age2To5: 0,
+    age6To10: 0,
+    age11To16: 0
+  })
 
   const layout = {
     labelCol: {
@@ -27,16 +32,36 @@ export const BookingCalendar = (props) => {
     },
   }
 
-  function onNumOfStudentsInputChange(value) {
-    console.log('changed', value);
+  const onAge2To5InputChange = (value) => {
+    console.log('changed', value)
+
+    setNumOfStudents({...numOfStudents, age2To5: value})
+
+    console.dir(numOfStudents, {colors: true, depth: null})
+  }
+
+  const onAge6To10InputChange = (value) => {
+    console.log('changed', value)
+
+    setNumOfStudents({...numOfStudents, age6To10: value})
+
+    console.dir(numOfStudents, {colors: true, depth: null})
+  }
+
+  const onAge11To16InputChange = (value) => {
+    console.log('changed', value)
+
+    setNumOfStudents({...numOfStudents, age11To16: value})
+
+    console.dir(numOfStudents, {colors: true, depth: null})
   }
 
   const onFinish = (values) => {
-    console.log('Success:', values);
+    console.log('Success:', values)
   }
 
   function callback(key) {
-    console.log(key);
+    console.log(key)
   }
 
   return (
@@ -54,17 +79,17 @@ export const BookingCalendar = (props) => {
           </Form.Item>
 
           <Collapse className={css['small-margin-bottom']} defaultActiveKey={['1']} onChange={callback}>
-            <Panel header="This is panel header 1" key="1">
+            <Panel header={`Total students: ${numOfStudents.age2To5 + numOfStudents.age6To10 + numOfStudents.age11To16}`} key="1">
               <Form.Item label="Age 2 - 5">
-                <InputNumber min={1} max={10} defaultValue={3} onChange={onNumOfStudentsInputChange} />
+                <InputNumber min={1} max={10} defaultValue={0} onChange={onAge2To5InputChange} />
               </Form.Item>
 
               <Form.Item label="Age 6 - 10">
-                <InputNumber min={1} max={10} defaultValue={3} onChange={onNumOfStudentsInputChange} />
+                <InputNumber min={1} max={10} defaultValue={0} onChange={onAge6To10InputChange} />
               </Form.Item>
 
               <Form.Item className={css['no-margin-bottom']} label="Age 11 - 16">
-                <InputNumber min={1} max={10} defaultValue={3} onChange={onNumOfStudentsInputChange} />
+                <InputNumber min={1} max={10} defaultValue={0} onChange={onAge11To16InputChange} />
               </Form.Item>
             </Panel>
           </Collapse>
