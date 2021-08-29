@@ -1,46 +1,35 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using BCryptNet = BCrypt.Net.BCrypt;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using WebApi.Authorization;
+using WebApi.Entities;
+using WebApi.Helpers;
+using WebApi.Services;
 using System;
-using Ami.Authorization;
-using Ami.Helpers;
-using Ami.Services;
 
-namespace Ami
+namespace WebApi
 {
     public class Startup
     {
-        private readonly IWebHostEnvironment _env;
-        private readonly IConfiguration _configuration;
+        public IConfiguration Configuration { get; }
 
-        public Startup(IWebHostEnvironment env, IConfiguration configuration)
+        public Startup(IConfiguration configuration)
         {
-            _env = env;
-            _configuration = configuration;
+            Configuration = configuration;
         }
 
         // add services to the DI container
         public void ConfigureServices(IServiceCollection services)
         {
-            // use sql server db in production and sqlite db in development
-            if (_env.IsProduction())
-            {
-                services.AddDbContext<DataContext>();
-            }
-            else
-            {
-                services.AddDbContext<DataContext, SqliteDataContext>();
-            }
-
+            services.AddDbContext<DataContext>();
             services.AddCors();
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.IgnoreNullValues = true);
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            // configure strongly typed settings objects
-            services.Configure<AppSettings>(_configuration.GetSection("AppSettings"));
+            // configure strongly typed settings object
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
             // configure DI for application services
             services.AddScoped<IJwtUtils, JwtUtils>();
@@ -48,18 +37,18 @@ namespace Ami
         }
 
         // configure the HTTP request pipeline
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DataContext dataContext)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DataContext context)
         {
-            // migrate any database changes on startup (includes initial db creation)
-            dataContext.Database.Migrate();
+            createTestUser(context);
 
             app.UseRouting();
 
             // global cors policy
             app.UseCors(x => x
-                .AllowAnyOrigin()
+                .SetIsOriginAllowed(origin => true)
                 .AllowAnyMethod()
-                .AllowAnyHeader());
+                .AllowAnyHeader()
+                .AllowCredentials());
 
             // global error handler
             app.UseMiddleware<ErrorHandlerMiddleware>();
@@ -68,6 +57,20 @@ namespace Ami
             app.UseMiddleware<JwtMiddleware>();
 
             app.UseEndpoints(x => x.MapControllers());
+        }
+
+        private void createTestUser(DataContext context)
+        {
+            // add hardcoded test user to db on startup
+            var testUser = new User
+            {
+                FirstName = "Test",
+                LastName = "User",
+                Username = "test",
+                PasswordHash = BCryptNet.HashPassword("test")
+            };
+            context.Users.Add(testUser);
+            context.SaveChanges();
         }
     }
 }

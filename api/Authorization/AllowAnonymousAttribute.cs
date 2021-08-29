@@ -1,6 +1,6 @@
 using System;
 
-namespace Ami.Authorization
+namespace WebApi.Authorization
 {
     [AttributeUsage(AttributeTargets.Method)]
     public class AllowAnonymousAttribute : Attribute

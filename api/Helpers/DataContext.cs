@@ -1,12 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Ami.Entities;
+using WebApi.Entities;
 
-namespace Ami.Helpers
+namespace WebApi.Helpers
 {
     public class DataContext : DbContext
     {
-        protected readonly IConfiguration Configuration;
+        public DbSet<User> Users { get; set; }
+
+        private readonly IConfiguration Configuration;
 
         public DataContext(IConfiguration configuration)
         {
@@ -15,10 +17,8 @@ namespace Ami.Helpers
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            // connect to sql server database
-            options.UseSqlServer(Configuration.GetConnectionString("WebApiDatabase"));
+            // in memory database used for simplicity, change to a real db for production applications
+            options.UseInMemoryDatabase("TestDb");
         }
-
-        public DbSet<User> Users { get; set; }
     }
 }

@@ -2,10 +2,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using System.Linq;
 using System.Threading.Tasks;
-using Ami.Helpers;
-using Ami.Services;
+using WebApi.Helpers;
+using WebApi.Services;
 
-namespace Ami.Authorization
+namespace WebApi.Authorization
 {
     public class JwtMiddleware
     {
@@ -21,7 +21,7 @@ namespace Ami.Authorization
         public async Task Invoke(HttpContext context, IUserService userService, IJwtUtils jwtUtils)
         {
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-            var userId = jwtUtils.ValidateToken(token);
+            var userId = jwtUtils.ValidateJwtToken(token);
             if (userId != null)
             {
                 // attach user to context on successful jwt validation

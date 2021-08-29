@@ -1,6 +1,7 @@
 using System.Text.Json.Serialization;
+using System.Collections.Generic;
 
-namespace Ami.Entities
+namespace WebApi.Entities
 {
     public class User
     {
@@ -11,5 +12,8 @@ namespace Ami.Entities
 
         [JsonIgnore]
         public string PasswordHash { get; set; }
+
+        [JsonIgnore]
+        public List<RefreshToken> RefreshTokens { get; set; }
     }
 }
