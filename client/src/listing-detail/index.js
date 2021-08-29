@@ -8,21 +8,20 @@ import classNames from 'classnames/bind'
 import { AvatarInitials } from './component/avatar-initials'
 import { ReviewModal } from './component/review-modal/review-modal'
 import { BookingCalendar } from './component/booking-calendar'
-import { DatePicker, Divider, Tag } from 'antd'
+import { Divider, Tag } from 'antd'
 import {
   TeamOutlined,
   FundProjectionScreenOutlined,
   VerifiedOutlined,
 } from '@ant-design/icons'
 
-const { RangePicker } = DatePicker
 
 let cx = classNames.bind(css)
 
 export const ListingDetail = () => {
   let { id } = useParams()
   const [experience, setExperience] = useState(undefined)
-  const [modalShow, setModalShow] = useState(false)
+  const [imageModalShow, setImageModalShow] = useState(false)
   const [showReviews, setShowReviews] = useState(false)
 
   useEffect(async () => {
@@ -49,8 +48,8 @@ export const ListingDetail = () => {
     <>
       <ImageCarouselModal
         images={experience.images}
-        show={modalShow}
-        onHide={() => setModalShow(false)}
+        show={imageModalShow}
+        onHide={() => setImageModalShow(false)}
       />
       <ReviewModal
         hostId={`test`}
@@ -82,7 +81,7 @@ export const ListingDetail = () => {
         </div>
 
         <Row className={`justify-content-center ${css['image-group']}`}
-          onClick={() => setModalShow(true)}>
+          onClick={() => setImageModalShow(true)}>
           <Col className={css['first-image-col']} sm={4}>
             <Image
               className={css['image-bounding-box']}
