@@ -1,71 +1,46 @@
-import Navbar from 'react-bootstrap/Navbar'
-import Form from 'react-bootstrap/Form'
-import FormControl from 'react-bootstrap/FormControl'
-import Button from 'react-bootstrap/Button'
-import Nav from 'react-bootstrap/Nav'
-import brain from './brain.svg'
+import fern from './fern.svg'
 import { Switch, Route, NavLink } from 'react-router-dom'
-import { Row, NavItem, Container } from 'react-bootstrap'
 import Register from '../register'
 import { Listings } from '../listings'
 import { ListingDetail } from '../listing-detail'
 import css from './nav-style.module.css'
+import { Layout, Menu } from 'antd'
+
+const { Header, Content, Footer } = Layout
 
 //Attribution icon
-//<div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+{/* <div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> */}
 
 function Navigation() {
   return (
-    <>
-      <Navbar expand="xl" bg="light" variant="light" sticky="top">
-        <Container fluid='lg'>
-          <Navbar.Brand as={NavLink} to='/'>
-            <img
-              alt=""
-              src={brain}
-              width="30"
-              height="30"
-              className="d-inline-block align-top"
-            />{' '}
-            remoteassembly
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="mr-auto">
-              <NavItem eventkey={1} href="/listings">
-                <Nav.Link as={NavLink} to="/Listings" >listings</Nav.Link>
-              </NavItem>
-              <NavItem eventkey={2} href="/register">
-                <Nav.Link as={NavLink} to="/register" >Register</Nav.Link>
-              </NavItem>
-            </Nav>
-            <Navbar.Text className={css['navbar-text-margin-right']}>
-              Signed in as: <a href="#login">Mark Otto</a>
-            </Navbar.Text>
-            <Form inline className="d-flex">
-              <FormControl
-                type="search"
-                placeholder="Search"
-                aria-label="search"
-                aria-describedby="search"
-                className="mr-2"
-              />
-              <Button variant="outline-primary" id="search-button">
-                Button
-              </Button>
-            </Form>
-          </Navbar.Collapse>
+    <Layout theme="light">
+      <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
+        <NavLink className={css.logo} to="/"><img
+          alt=""
+          src={fern}
+          width="30"
+          height="30"
+          className="d-inline-block align-top"
+        />{' '}</NavLink>
+        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
+          <Menu.Item key="1"><NavLink to="/listings">All Classes</NavLink></Menu.Item>
+          <Menu.Item key="2"><NavLink to="/register">register</NavLink></Menu.Item>
+        </Menu>
+      </Header>
 
-        </Container>
-      </Navbar>
-      <Switch>
-        <Route exact path="/" component={Listings} />
-        <Route path="/register" component={Register} />
-        <Route path="/listings/:id" component={ListingDetail} />
-        <Route path="/listings" component={Listings} />
-      </Switch>
-    </>
-  );
+      <Content className={css['site-layout']} style={{ padding: '0 50px', marginTop: 64 }}>
+        <div className={css['site-layout-background']} style={{ padding: 24, minHeight: 380 }}>
+          <Switch>
+            <Route exact path="/" component={Listings} />
+            <Route path="/register" component={Register} />
+            <Route path="/listings/:id" component={ListingDetail} />
+            <Route path="/listings" component={Listings} />
+          </Switch>
+        </div>
+      </Content>
+      <Footer style={{ textAlign: 'center' }}>Remote Assembly ©2021 Created by Barin</Footer>
+    </Layout>
+  )
 }
 
 export default Navigation
