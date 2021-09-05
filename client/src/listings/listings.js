@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Card, Button, Container, Row } from 'react-bootstrap'
+import { Row, Avatar, Card, Divider } from 'antd'
 import { all } from './listings-service'
 import { useHistory } from 'react-router-dom'
 import './style.css'
+
+const { Meta } = Card
 
 export const Listings = () => {
   const [listings, setListings] = useState()
@@ -28,26 +30,33 @@ export const Listings = () => {
   }) => (
     <Card
       id={id}
-      onClick={e => setSelectedId(id)} 
-      className='marginMedium' 
-      style={{ width: '18rem', cursor: 'pointer' }}>
-      <Card.Img variant="top" src={img} />
-      <Card.Body>
-        <Card.Title>{title}</Card.Title>
-        <Card.Text>{description}</Card.Text>
-        {buttonText && <Button variant="primary">{buttonText}</Button>}
-      </Card.Body>
+      hoverable
+      style={{ width: 300, marginBottom: '1rem', padding: '1px' }}
+      onClick={e => setSelectedId(id)}
+      cover={
+        <img
+          alt={description}
+          src={img}
+        />
+      }
+    >
+      <Meta
+        avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+        title={title}
+        description={description}
+      />
     </Card>
   )
 
   return (
-    <Container fluid>
-      <Row className="justify-content-center">
-        {
-          listings?.map((i, index) => <CardView key={index} {...i} />)
-        }
-      </Row>
-    </Container>
+    <Row justify='space-around'>
+      {
+        listings?.map((i, index) => 
+        <>
+        <CardView key={index} {...i} />
+        </>)
+      }
+    </Row>
   )
 }
 

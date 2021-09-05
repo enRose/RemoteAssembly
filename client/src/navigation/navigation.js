@@ -37,7 +37,7 @@ const Navigation = () => {
           <Col span={12}>
             <Input placeholder="search a class" prefix={<SearchOutlined />} />
           </Col>
-          <Col span={10}>
+          <Col span={10} push={4}>
             <Menu theme={Theme} mode="horizontal" defaultSelectedKeys={['1']}>
               <Menu.Item key="1"><NavLink to="/listings">All Classes</NavLink></Menu.Item>
               <Menu.Item key="2"><NavLink to="/register">register</NavLink></Menu.Item>
