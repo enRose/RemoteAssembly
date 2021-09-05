@@ -5,16 +5,29 @@ import { Listings } from '../listings'
 import { ListingDetail } from '../listing-detail'
 import css from './nav-style.module.css'
 import { Layout, Menu } from 'antd'
+import classNames from 'classnames'
 
 const { Header, Content, Footer } = Layout
 
 //Attribution icon
 {/* <div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> */}
 
-function Navigation() {
+const themeConfig = 'light'
+
+const theme = classNames({
+  'light': themeConfig === 'light',
+  'dark': themeConfig === 'dark'
+})
+
+const Navigation = () => {
   return (
-    <Layout theme="light">
-      <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
+    <Layout>
+      <Header className={css[theme]}
+        style={{ 
+        position: 'fixed', 
+        zIndex: 1, 
+        width: '100%'
+        }}>
         <NavLink className={css.logo} to="/"><img
           alt=""
           src={fern}
@@ -22,7 +35,7 @@ function Navigation() {
           height="30"
           className="d-inline-block align-top"
         />{' '}</NavLink>
-        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
+        <Menu theme={theme} mode="horizontal" defaultSelectedKeys={['1']}>
           <Menu.Item key="1"><NavLink to="/listings">All Classes</NavLink></Menu.Item>
           <Menu.Item key="2"><NavLink to="/register">register</NavLink></Menu.Item>
         </Menu>
