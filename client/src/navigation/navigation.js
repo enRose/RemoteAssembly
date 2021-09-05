@@ -5,24 +5,17 @@ import { Listings } from '../listings'
 import { ListingDetail } from '../listing-detail'
 import css from './nav-style.module.css'
 import { Layout, Menu } from 'antd'
-import classNames from 'classnames'
+import {Theme} from '../theme-manager/theme'
 
 const { Header, Content, Footer } = Layout
 
 //Attribution icon
 {/* <div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> */}
 
-const themeConfig = 'light'
-
-const theme = classNames({
-  'light': themeConfig === 'light',
-  'dark': themeConfig === 'dark'
-})
-
 const Navigation = () => {
   return (
     <Layout>
-      <Header className={css[theme]}
+      <Header className={css[Theme]}
         style={{ 
         position: 'fixed', 
         zIndex: 1, 
@@ -35,7 +28,7 @@ const Navigation = () => {
           height="30"
           className="d-inline-block align-top"
         />{' '}</NavLink>
-        <Menu theme={theme} mode="horizontal" defaultSelectedKeys={['1']}>
+        <Menu theme={Theme} mode="horizontal" defaultSelectedKeys={['1']}>
           <Menu.Item key="1"><NavLink to="/listings">All Classes</NavLink></Menu.Item>
           <Menu.Item key="2"><NavLink to="/register">register</NavLink></Menu.Item>
         </Menu>
