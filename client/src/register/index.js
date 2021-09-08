@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Layout, Form, Input, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd'
+import { Card, Layout, Form, Input, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd'
 
 const { Header, Footer, Sider, Content } = Layout
 const { Option } = Select
@@ -38,36 +38,6 @@ const residences = [
     ],
   },
 ];
-const formItemLayout = {
-  labelCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 8,
-    },
-  },
-  wrapperCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 16,
-    },
-  },
-};
-const tailFormItemLayout = {
-  wrapperCol: {
-    xs: {
-      span: 24,
-      offset: 0,
-    },
-    sm: {
-      span: 16,
-      offset: 8,
-    },
-  },
-};
 
 const Register = () => {
   const [form] = Form.useForm();
@@ -103,9 +73,10 @@ const Register = () => {
     value: website,
   }));
   return (
-   
+    <Row justify='center' align='middle'>
+      <Card title="Welcome to RemoteAssembly!" bordered={false} style={{ width: 500 }}>
         <Form
-          {...formItemLayout}
+          layout="vertical"
           form={form}
           name="register"
           onFinish={onFinish}
@@ -117,7 +88,7 @@ const Register = () => {
         >
           <Form.Item
             name="email"
-            label="E-mail"
+            label="Enter your email"
             rules={[
               {
                 type: 'email',
@@ -134,11 +105,11 @@ const Register = () => {
 
           <Form.Item
             name="password"
-            label="Password"
+            label="Create a password"
             rules={[
               {
                 required: true,
-                message: 'Please input your password!',
+                message: 'Please enter a password!',
               },
             ]}
             hasFeedback
@@ -159,7 +130,7 @@ const Register = () => {
               ({ getFieldValue }) => ({
                 validator(_, value) {
                   if (!value || getFieldValue('password') === value) {
-                    return Promise.resolve();
+                    return Promise.resolve()
                   }
 
                   return Promise.reject(new Error('The two passwords that you entered do not match!'));
@@ -171,13 +142,13 @@ const Register = () => {
           </Form.Item>
 
           <Form.Item
-            name="nickname"
-            label="Nickname"
-            tooltip="What do you want others to call you?"
+            name="username"
+            label="Enter a username"
+            tooltip="What other will see you as"
             rules={[
               {
                 required: true,
-                message: 'Please input your nickname!',
+                message: 'Please enter your Username!',
                 whitespace: true,
               },
             ]}
@@ -197,56 +168,6 @@ const Register = () => {
             ]}
           >
             <Cascader options={residences} />
-          </Form.Item>
-
-          <Form.Item
-            name="phone"
-            label="Phone Number"
-            rules={[
-              {
-                required: true,
-                message: 'Please input your phone number!',
-              },
-            ]}
-          >
-            <Input
-              addonBefore={prefixSelector}
-              style={{
-                width: '100%',
-              }}
-            />
-          </Form.Item>
-
-          <Form.Item
-            name="website"
-            label="Website"
-            rules={[
-              {
-                required: true,
-                message: 'Please input website!',
-              },
-            ]}
-          >
-            <AutoComplete options={websiteOptions} onChange={onWebsiteChange} placeholder="website">
-              <Input />
-            </AutoComplete>
-          </Form.Item>
-
-          <Form.Item
-            name="gender"
-            label="Gender"
-            rules={[
-              {
-                required: true,
-                message: 'Please select gender!',
-              },
-            ]}
-          >
-            <Select placeholder="select your gender">
-              <Option value="male">Male</Option>
-              <Option value="female">Female</Option>
-              <Option value="other">Other</Option>
-            </Select>
           </Form.Item>
 
           <Form.Item label="Captcha" extra="We must make sure that your are a human.">
@@ -280,19 +201,23 @@ const Register = () => {
                   value ? Promise.resolve() : Promise.reject(new Error('Should accept agreement')),
               },
             ]}
-            {...tailFormItemLayout}
+        
           >
             <Checkbox>
               I have read the <a href="">agreement</a>
             </Checkbox>
           </Form.Item>
-          <Form.Item {...tailFormItemLayout}>
+          <Form.Item>
             <Button type="primary" htmlType="submit">
               Register
             </Button>
           </Form.Item>
         </Form>
-     
+
+      </Card>
+
+
+    </Row>
   )
 }
 
