@@ -20,6 +20,14 @@ namespace WebApi.Controllers
         }
 
         [AllowAnonymous]
+        [HttpPost("recaptcha")]
+        public IActionResult Recaptcha(RecaptchaRequest model)
+        {
+            _userService.Recaptcha(model);
+            return Ok(new { message = "Registration successful" });
+        }
+
+        [AllowAnonymous]
         [HttpPost("register")]
         public IActionResult Register(RegisterRequest model)
         {

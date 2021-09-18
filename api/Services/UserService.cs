@@ -8,11 +8,13 @@ using WebApi.Entities;
 using WebApi.Helpers;
 using WebApi.Models.Users;
 using WebApi.Authorization;
+using System.Threading.Tasks;
 
 namespace WebApi.Services
 {
     public interface IUserService
     {
+        Task<RecaptchaResponse> Recaptcha(RecaptchaRequest model);
         void Register(RegisterRequest model);
         AuthenticateResponse Authenticate(AuthenticateRequest model, string ipAddress);
         AuthenticateResponse RefreshToken(string token, string ipAddress);
@@ -27,24 +29,32 @@ namespace WebApi.Services
         private IJwtUtils _jwtUtils;
         private readonly AppSettings _appSettings;
         private readonly IMapper _mapper;
+        private readonly IRecaptchaService _recaptchaService;
 
         public UserService(
+            IRecaptchaService recaptchaService,
             DataContext context,
             IJwtUtils jwtUtils,
             IOptions<AppSettings> appSettings,
             IMapper mapper)
         {
+            _recaptchaService = recaptchaService;
             _context = context;
             _jwtUtils = jwtUtils;
             _appSettings = appSettings.Value;
             _mapper = mapper;
         }
 
+        public async Task<RecaptchaResponse> Recaptcha(RecaptchaRequest model) =>
+            await _recaptchaService.Verify(model.RecaptchaAnswerFromClient);
+
         public void Register(RegisterRequest model)
         {
             // validate
             if (_context.Users.Any(x => x.Username == model.Username))
+            {
                 throw new AppException("Username '" + model.Username + "' is already taken");
+            }
 
             // map model to new user object
             var user = _mapper.Map<User>(model);
@@ -71,7 +81,7 @@ namespace WebApi.Services
             user.RefreshTokens.Add(refreshToken);
 
             // remove old refresh tokens from user
-            removeOldRefreshTokens(user);
+            RemoveOldRefreshTokens(user);
 
             // save changes to db
             _context.Update(user);
@@ -82,7 +92,7 @@ namespace WebApi.Services
 
         public AuthenticateResponse RefreshToken(string token, string ipAddress)
         {
-            var user = getUserByRefreshToken(token);
+            var user = GetUserByRefreshToken(token);
             var refreshToken = user.RefreshTokens.Single(x => x.Token == token);
 
             if (refreshToken.IsRevoked)
@@ -97,11 +107,11 @@ namespace WebApi.Services
                 throw new AppException("Invalid token");
 
             // replace old refresh token with a new one (rotate token)
-            var newRefreshToken = rotateRefreshToken(refreshToken, ipAddress);
+            var newRefreshToken = RotateRefreshToken(refreshToken, ipAddress);
             user.RefreshTokens.Add(newRefreshToken);
 
             // remove old refresh tokens from user
-            removeOldRefreshTokens(user);
+            RemoveOldRefreshTokens(user);
 
             // save changes to db
             _context.Update(user);
@@ -115,14 +125,14 @@ namespace WebApi.Services
 
         public void RevokeToken(string token, string ipAddress)
         {
-            var user = getUserByRefreshToken(token);
+            var user = GetUserByRefreshToken(token);
             var refreshToken = user.RefreshTokens.Single(x => x.Token == token);
 
             if (!refreshToken.IsActive)
                 throw new AppException("Invalid token");
 
             // revoke token and save
-            revokeRefreshToken(refreshToken, ipAddress, "Revoked without replacement");
+            RevokeRefreshToken(refreshToken, ipAddress, "Revoked without replacement");
             _context.Update(user);
             _context.SaveChanges();
         }
@@ -141,7 +151,7 @@ namespace WebApi.Services
 
         // helper methods
 
-        private User getUserByRefreshToken(string token)
+        private User GetUserByRefreshToken(string token)
         {
             var user = _context.Users.SingleOrDefault(u => u.RefreshTokens.Any(t => t.Token == token));
 
@@ -151,14 +161,14 @@ namespace WebApi.Services
             return user;
         }
 
-        private RefreshToken rotateRefreshToken(RefreshToken refreshToken, string ipAddress)
+        private RefreshToken RotateRefreshToken(RefreshToken refreshToken, string ipAddress)
         {
             var newRefreshToken = _jwtUtils.GenerateRefreshToken(ipAddress);
-            revokeRefreshToken(refreshToken, ipAddress, "Replaced by new token", newRefreshToken.Token);
+            RevokeRefreshToken(refreshToken, ipAddress, "Replaced by new token", newRefreshToken.Token);
             return newRefreshToken;
         }
 
-        private void removeOldRefreshTokens(User user)
+        private void RemoveOldRefreshTokens(User user)
         {
             // remove old inactive refresh tokens from user based on TTL in app settings
             user.RefreshTokens.RemoveAll(x => 
@@ -173,13 +183,13 @@ namespace WebApi.Services
             {
                 var childToken = user.RefreshTokens.SingleOrDefault(x => x.Token == refreshToken.ReplacedByToken);
                 if (childToken.IsActive)
-                    revokeRefreshToken(childToken, ipAddress, reason);
+                    RevokeRefreshToken(childToken, ipAddress, reason);
                 else
                     revokeDescendantRefreshTokens(childToken, user, ipAddress, reason);
             }
         }
 
-        private void revokeRefreshToken(RefreshToken token, string ipAddress, string reason = null, string replacedByToken = null)
+        private void RevokeRefreshToken(RefreshToken token, string ipAddress, string reason = null, string replacedByToken = null)
         {
             token.Revoked = DateTime.UtcNow;
             token.RevokedByIp = ipAddress;

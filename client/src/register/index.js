@@ -1,77 +1,34 @@
 import React, { useState } from 'react'
 import { Card, Layout, Form, Input, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd'
+import ReCAPTCHA from 'react-google-recaptcha'
 
 const { Header, Footer, Sider, Content } = Layout
 const { Option } = Select
-
-const residences = [
-  {
-    value: 'zhejiang',
-    label: 'Zhejiang',
-    children: [
-      {
-        value: 'hangzhou',
-        label: 'Hangzhou',
-        children: [
-          {
-            value: 'xihu',
-            label: 'West Lake',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    value: 'jiangsu',
-    label: 'Jiangsu',
-    children: [
-      {
-        value: 'nanjing',
-        label: 'Nanjing',
-        children: [
-          {
-            value: 'zhonghuamen',
-            label: 'Zhong Hua Men',
-          },
-        ],
-      },
-    ],
-  },
-];
 
 const Register = () => {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
-  };
+  }
 
-  const prefixSelector = (
-    <Form.Item name="prefix" noStyle>
-      <Select
-        style={{
-          width: 70,
-        }}
-      >
-        <Option value="86">+86</Option>
-        <Option value="87">+87</Option>
-      </Select>
-    </Form.Item>
-  );
-  const [autoCompleteResult, setAutoCompleteResult] = useState([]);
+  const [autoCompleteResult, setAutoCompleteResult] = useState([])
 
-  const onWebsiteChange = (value) => {
-    if (!value) {
-      setAutoCompleteResult([]);
-    } else {
-      setAutoCompleteResult(['.com', '.org', '.net'].map((domain) => `${value}${domain}`));
-    }
-  };
+  const onRecaptcha = async v => {
+    console.log(v)
 
-  const websiteOptions = autoCompleteResult.map((website) => ({
-    label: website,
-    value: website,
-  }));
+    const result = await fetch(`http://localhost:4000/users/recaptcha`, {
+      method: 'POST',
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({recaptcha: v})
+    })
+
+    console.dir(result)
+  }
+
   return (
     <Row justify='center' align='middle'>
       <Card title="Welcome to RemoteAssembly!" bordered={false} style={{ width: 500 }}>
@@ -157,42 +114,6 @@ const Register = () => {
           </Form.Item>
 
           <Form.Item
-            name="residence"
-            label="Habitual Residence"
-            rules={[
-              {
-                type: 'array',
-                required: true,
-                message: 'Please select your habitual residence!',
-              },
-            ]}
-          >
-            <Cascader options={residences} />
-          </Form.Item>
-
-          <Form.Item label="Captcha" extra="We must make sure that your are a human.">
-            <Row gutter={8}>
-              <Col span={12}>
-                <Form.Item
-                  name="captcha"
-                  noStyle
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Please input the captcha you got!',
-                    },
-                  ]}
-                >
-                  <Input />
-                </Form.Item>
-              </Col>
-              <Col span={12}>
-                <Button>Get captcha</Button>
-              </Col>
-            </Row>
-          </Form.Item>
-
-          <Form.Item
             name="agreement"
             valuePropName="checked"
             rules={[
@@ -201,7 +122,6 @@ const Register = () => {
                   value ? Promise.resolve() : Promise.reject(new Error('Should accept agreement')),
               },
             ]}
-        
           >
             <Checkbox>
               I have read the <a href="">agreement</a>
@@ -214,9 +134,14 @@ const Register = () => {
           </Form.Item>
         </Form>
 
+        <Form.Item>
+          <ReCAPTCHA
+            sitekey='6LcQFmYcAAAAAFC-Ye_UolCyqz2XIFYRiAlyQVWc'
+            onChange={onRecaptcha}
+          />
+        </Form.Item>
+
       </Card>
-
-
     </Row>
   )
 }
