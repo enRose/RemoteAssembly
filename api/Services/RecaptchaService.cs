@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
-using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using WebApi.Models.Users;
@@ -51,6 +49,14 @@ namespace WebApi.Services
 
             // throws if not 200-299
             httpResponse.EnsureSuccessStatusCode();
+
+            using var stream = await httpResponse.Content.ReadAsStreamAsync();
+
+            return await JsonSerializer.DeserializeAsync<RecaptchaResponse>(
+                stream,
+                new JsonSerializerOptions() {
+                    PropertyNameCaseInsensitive = true
+                });
         }
     }
 }
