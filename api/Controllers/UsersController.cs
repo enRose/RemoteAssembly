@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Threading.Tasks;
 using WebApi.Authorization;
 using WebApi.Models.Users;
 using WebApi.Services;
@@ -21,10 +22,10 @@ namespace WebApi.Controllers
 
         [AllowAnonymous]
         [HttpPost("recaptcha")]
-        public IActionResult Recaptcha(RecaptchaRequest model)
+        public async Task<IActionResult> RecaptchaAsync(RecaptchaRequest model)
         {
-            _userService.Recaptcha(model);
-            return Ok(new { message = "Registration successful" });
+            var r = await _userService.Recaptcha(model);
+            return Ok(r);
         }
 
         [AllowAnonymous]

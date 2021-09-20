@@ -32,10 +32,9 @@ namespace WebApi
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
             // configure DI for application services
+            services.AddHttpClient<RecaptchaService>();
             services.AddScoped<IJwtUtils, JwtUtils>();
             services.AddScoped<IUserService, UserService>();
-
-            services.AddHttpClient<RecaptchaService>();
         }
 
         // configure the HTTP request pipeline
@@ -46,6 +45,11 @@ namespace WebApi
             app.UseRouting();
 
             // global cors policy
+            // The allow origin access control http header returned when using
+            // this method contains the origin that sent the request, not a wildcard,
+            // e.g.Access - Control - Allow - Origin: http://localhost:3000
+            var corsOriginAllowed = new[] { "localhost:3000" };
+
             app.UseCors(x => x
                 .SetIsOriginAllowed(origin => true)
                 .AllowAnyMethod()

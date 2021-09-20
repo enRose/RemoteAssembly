@@ -32,7 +32,7 @@ namespace WebApi.Services
         private readonly IRecaptchaService _recaptchaService;
 
         public UserService(
-            IRecaptchaService recaptchaService,
+            RecaptchaService recaptchaService,
             DataContext context,
             IJwtUtils jwtUtils,
             IOptions<AppSettings> appSettings,

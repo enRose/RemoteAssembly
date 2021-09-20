@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Net.Http;
-using System.Net.Http.Json;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using WebApi.Models.Users;
@@ -24,28 +24,23 @@ namespace WebApi.Services
 
             client.BaseAddress = _uri;
             client.DefaultRequestHeaders.Add("Accept",
-                "application/json");
-            client.DefaultRequestHeaders.Add("Content-Type",
-                "application/x-www-form-urlencoded; charset=utf-8");
-
+                "*/*");
+            
             _client = client;
         }
 
         public async Task<RecaptchaResponse> Verify(string recaptchaAnswerFromClient)
         {
-            //var body = new StringContent(
-            //    JsonSerializer.Serialize(new {
-            //        secret = _googleServerKey,
-            //        response = recaptchaAnswerFromClient
-            //    }),
-            //    Encoding.UTF8,
-            //    "application/json");
+            var body = new StringContent(
+                JsonSerializer.Serialize(new
+                {
+                    secret = _googleServerKey,
+                    response = recaptchaAnswerFromClient
+                }),
+                Encoding.UTF8,
+                "application/json");
 
-            using var httpResponse = await _client.PostAsJsonAsync(_uri, new
-            {
-                secret = _googleServerKey,
-                response = recaptchaAnswerFromClient
-            });
+            using var httpResponse = await _client.PostAsync(_uri, body);
 
             // throws if not 200-299
             httpResponse.EnsureSuccessStatusCode();

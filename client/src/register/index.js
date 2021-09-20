@@ -17,14 +17,13 @@ const Register = () => {
   const onRecaptcha = async v => {
     console.log(v)
 
-    const result = await fetch(`http://localhost:4000/users/recaptcha`, {
+    const requestOptions = {
       method: 'POST',
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({recaptcha: v})
-    })
+      headers: { "Access-Control-Allow-Origin": "*", 'Content-Type': 'application/json' },
+      body: JSON.stringify({ recaptchaAnswerFromClient: v })
+  }
+
+    const result = await fetch(`http://localhost:4000/users/recaptcha`, requestOptions)
 
     console.dir(result)
   }
