@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net.Http;
-using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using WebApi.Models.Users;
@@ -31,25 +30,20 @@ namespace WebApi.Services
 
         public async Task<RecaptchaResponse> Verify(string recaptchaAnswerFromClient)
         {
-            var body = new StringContent(
-                JsonSerializer.Serialize(new
-                {
-                    secret = _googleServerKey,
-                    response = recaptchaAnswerFromClient
-                }),
-                Encoding.UTF8,
-                "application/json");
+            var httpResponse = await _client.PostAsync(
+                $"https://www.google.com/recaptcha/api/siteverify?" +
+                $"secret={_googleServerKey}&response={recaptchaAnswerFromClient}",
+                null
+                );
 
-            using var httpResponse = await _client.PostAsync(_uri, body);
-
-            // throws if not 200-299
             httpResponse.EnsureSuccessStatusCode();
 
             using var stream = await httpResponse.Content.ReadAsStreamAsync();
 
             return await JsonSerializer.DeserializeAsync<RecaptchaResponse>(
                 stream,
-                new JsonSerializerOptions() {
+                new JsonSerializerOptions()
+                {
                     PropertyNameCaseInsensitive = true
                 });
         }

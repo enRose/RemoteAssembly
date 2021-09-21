@@ -9,6 +9,7 @@ using WebApi.Helpers;
 using WebApi.Models.Users;
 using WebApi.Authorization;
 using System.Threading.Tasks;
+using System.Net.Http;
 
 namespace WebApi.Services
 {
