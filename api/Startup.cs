@@ -8,6 +8,7 @@ using WebApi.Entities;
 using WebApi.Helpers;
 using WebApi.Services;
 using System;
+using WebApi.Settings;
 
 namespace WebApi
 {
@@ -30,6 +31,7 @@ namespace WebApi
 
             // configure strongly typed settings object
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+            services.Configure<RecaptchaSettings>(Configuration.GetSection(nameof(RecaptchaSettings)));
 
             // configure DI for application services
             services.AddHttpClient<RecaptchaService>();

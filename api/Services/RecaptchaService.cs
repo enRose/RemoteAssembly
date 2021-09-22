@@ -2,7 +2,9 @@
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
 using WebApi.Models.Users;
+using WebApi.Settings;
 
 namespace WebApi.Services
 {
@@ -15,24 +17,26 @@ namespace WebApi.Services
     {
         private readonly HttpClient _client;
         private readonly Uri _uri;
-        private readonly string _googleServerKey = "";
+        private readonly RecaptchaSettings settings;
 
-        public RecaptchaService(HttpClient client)
+        public RecaptchaService(HttpClient client, IOptions<RecaptchaSettings> options)
         {
-            _uri = new Uri("https://www.google.com/recaptcha/api/siteverify");
+            settings = options.Value;
+
+            _uri = new Uri(settings.HostUri);
 
             client.BaseAddress = _uri;
-            client.DefaultRequestHeaders.Add("Accept",
-                "*/*");
-            
+
+            client.DefaultRequestHeaders.Add("Accept", "*/*");
+
             _client = client;
         }
 
         public async Task<RecaptchaResponse> Verify(string recaptchaAnswerFromClient)
         {
             var httpResponse = await _client.PostAsync(
-                $"https://www.google.com/recaptcha/api/siteverify?" +
-                $"secret={_googleServerKey}&response={recaptchaAnswerFromClient}",
+                $"{settings.HostUri}?" +
+                $"secret={settings.ServerKey}&response={recaptchaAnswerFromClient}",
                 null
                 );
 
