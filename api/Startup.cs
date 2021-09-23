@@ -37,6 +37,9 @@ namespace WebApi
             services.AddHttpClient<RecaptchaService>();
             services.AddScoped<IJwtUtils, JwtUtils>();
             services.AddScoped<IUserService, UserService>();
+
+            services.AddHealthChecks()
+                .AddCheck<ExternalEndpointHealthCheck>("GoogleRecaptcha");
         }
 
         // configure the HTTP request pipeline
@@ -45,7 +48,7 @@ namespace WebApi
             createTestUser(context);
 
             app.UseRouting();
-
+ 
             // global cors policy
             // The allow origin access control http header returned when using
             // this method contains the origin that sent the request, not a wildcard,
@@ -64,7 +67,11 @@ namespace WebApi
             // custom jwt auth middleware
             app.UseMiddleware<JwtMiddleware>();
 
-            app.UseEndpoints(x => x.MapControllers());
+            app.UseEndpoints(x => 
+            {
+                x.MapControllers();
+                x.MapHealthChecks("/health");
+            });
         }
 
         private void createTestUser(DataContext context)
