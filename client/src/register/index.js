@@ -23,9 +23,11 @@ const Register = () => {
       body: JSON.stringify({ recaptchaAnswerFromClient: v })
   }
 
-    const result = await fetch(`http://localhost:4000/users/recaptcha`, requestOptions)
+    const response = await fetch(`http://localhost:4000/users/recaptcha`, requestOptions)
 
-    console.dir(result)
+    const result = await response.json()
+
+    console.log(result)
   }
 
   return (
