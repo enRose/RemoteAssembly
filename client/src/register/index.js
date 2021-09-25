@@ -13,10 +13,10 @@ const Register = () => {
   }
 
   const [autoCompleteResult, setAutoCompleteResult] = useState([])
+  const [isHuman, setIsHuman] = useState(false)
 
   const onRecaptcha = async v => {
-    console.log(v)
-
+    console.dir(v, {colors: true})
     const requestOptions = {
       method: 'POST',
       headers: { "Access-Control-Allow-Origin": "*", 'Content-Type': 'application/json' },
@@ -27,7 +27,9 @@ const Register = () => {
 
     const result = await response.json()
 
-    console.log(result)
+    setIsHuman(!!result.success)
+
+    console.dir(result, {colors: true, depth: null})
   }
 
   return (
@@ -138,7 +140,7 @@ const Register = () => {
         <Form.Item>
           <ReCAPTCHA
             sitekey='6LcQFmYcAAAAAFC-Ye_UolCyqz2XIFYRiAlyQVWc'
-            onChange={onRecaptcha}
+            onChange={!isHuman && onRecaptcha}
           />
         </Form.Item>
 
