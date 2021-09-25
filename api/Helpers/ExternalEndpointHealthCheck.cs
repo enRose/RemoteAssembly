@@ -1,3 +1,4 @@
+using System;
 using System.Net.NetworkInformation;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,10 +11,12 @@ namespace WebApi.Helpers
   public class ExternalEndpointHealthCheck : IHealthCheck
   {
     private readonly RecaptchaSettings recaptchaSettings;
+    private readonly string host;
 
     public ExternalEndpointHealthCheck(IOptions<RecaptchaSettings> options) 
     {
       recaptchaSettings = options.Value;
+      host = new Uri(recaptchaSettings.HostUri).Host;
     }
 
     public async Task<HealthCheckResult> CheckHealthAsync(
@@ -22,7 +25,7 @@ namespace WebApi.Helpers
     {
       Ping ping = new();
 
-      var reply = await ping.SendPingAsync(recaptchaSettings.HostUri);
+      var reply = await ping.SendPingAsync(host);
 
       return reply.Status == IPStatus.Success ? HealthCheckResult.Healthy() : HealthCheckResult.Unhealthy();
     }
