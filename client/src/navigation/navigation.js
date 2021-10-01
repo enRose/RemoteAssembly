@@ -1,5 +1,5 @@
 import fern from './fern.svg'
-import { Switch, Route, NavLink } from 'react-router-dom'
+import { Switch, Route, NavLink, useLocation } from 'react-router-dom'
 import Register from '../register'
 import { Listings } from '../listings'
 import { ListingDetail } from '../listing-detail'
@@ -12,6 +12,10 @@ const { Header, Content, Footer } = Layout
 
 const Navigation = () => {
   const onSearch = value => console.log(value)
+
+  const location = useLocation()
+
+  console.log(location.pathname)
 
   return (
     <Layout>
@@ -33,9 +37,11 @@ const Navigation = () => {
               />{''}</NavLink>
             <Divider type="vertical" />
           </Col>
-
           <Col span={12}>
-            <Input placeholder="search a class" prefix={<SearchOutlined />} />
+            {
+              location?.pathname === '/listings' &&
+              <Input placeholder="search a class" prefix={<SearchOutlined />} />
+            }
           </Col>
           <Col span={10} push={4}>
             <Menu theme={Theme} mode="horizontal" defaultSelectedKeys={['1']}>
