@@ -1,3 +1,4 @@
+using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using WebApi.Entities;
@@ -18,7 +19,11 @@ namespace WebApi.Helpers
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
             // in memory database used for simplicity, change to a real db for production applications
-            options.UseInMemoryDatabase("TestDb");
+            //options.UseInMemoryDatabase("TestDb");
+
+            string dbPath = Environment.CurrentDirectory + @"/sqlite.db";
+
+            options.UseSqlite($"Data Source={dbPath}");
         }
     }
 }
