@@ -3,6 +3,7 @@ import { Switch, Route, NavLink, useLocation } from 'react-router-dom'
 import Register from '../register'
 import { Listings } from '../listings'
 import { ListingDetail } from '../listing-detail'
+import { SignIn } from '../sign-in'
 import css from './nav-style.module.css'
 import { Layout, Menu, Input, Row, Col, Divider } from 'antd'
 import { SearchOutlined } from '@ant-design/icons'
@@ -43,10 +44,11 @@ const Navigation = () => {
               <Input placeholder="search a class" prefix={<SearchOutlined />} />
             }
           </Col>
-          <Col span={10} push={4}>
+          <Col span={10} push={3}>
             <Menu theme={Theme} mode="horizontal" defaultSelectedKeys={['1']}>
               <Menu.Item key="1"><NavLink to="/listings">All Classes</NavLink></Menu.Item>
               <Menu.Item key="2"><NavLink to="/register">register</NavLink></Menu.Item>
+              <Menu.Item key="3"><NavLink to="/signIn">Sign in</NavLink></Menu.Item>
             </Menu>
           </Col>
 
@@ -56,6 +58,7 @@ const Navigation = () => {
         <div className={css['site-layout-background']} style={{ padding: 24, minHeight: 380 }}>
           <Switch>
             <Route exact path="/" component={Listings} />
+            <Route path="/signIn" component={SignIn} />
             <Route path="/register" component={Register} />
             <Route path="/listings/:id" component={ListingDetail} />
             <Route path="/listings" component={Listings} />
